@@ -25,7 +25,7 @@ Documentation
 
 The source of the documentation is stored in the `Resources/doc/` folder
 
-[Read the Documentation for master](https://linktodoc)
+[Read the Documentation for master](https://github.com/CrossKnowledge/DataTableBundle/blob/master/Resources/doc/index.md)
 
 Installation
 ------------
