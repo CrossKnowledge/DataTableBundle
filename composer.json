@@ -1,0 +1,28 @@
+{
+  "name": "crossknowledge/datatable-bundle",
+  "description": "Server side implementation of datatables.net library for Symfony2",
+  "type": "project",
+  "keywords": [
+    "datatables.net",
+    "Datatables",
+    "HTML Table",
+    "Symfony",
+    "Symfony2"
+  ],
+  "authors": [
+    {
+      "name": "Cyril Quintin",
+      "email": "cyril.quintin@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": { "CrossKnowledge\\DataTableBundle\\": "" }
+  },
+  "require": {
+    "php": ">=5.5",
+    "symfony/symfony": ">=2.6 <3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~3.7"
+  }
+}

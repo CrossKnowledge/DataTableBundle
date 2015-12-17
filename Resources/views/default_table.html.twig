@@ -1,0 +1,30 @@
+{% set wrapperClasses=wrapperClasses|default('') %}
+{% set additionalAjaxQs = datatable.getAjaxAdditionalParameters()|default({}) %}
+{% set urlParams = additionalAjaxQs|merge({'tableid': datatable.tableid}) %}
+<div class="{{ wrapperClasses }} ck-datatable-{{ datatable.tableid }} ck-datatable {{ datatable.options.layout.name }}"
+     data-cktable-custom-options="{{ datatable.options.data_table_custom_options|raw|json_encode }}"
+     data-cktable-ajax-url="{{ url('crossknowledge_datatable_handleajax_json', urlParams) }}"
+     data-cktable-clientside-filtering="{{ datatable.options.client_side_filtering }}"
+    {% if datatable.options.layout.domDefinition !="" %}
+        data-cktable-custom-dom="{{ datatable.options.layout.getDomDefinition()|raw|json_encode }}"
+    {% endif %}
+     data-cktable-columns="{{ columns|raw|json_encode }}">
+
+    {% block filterContainer %}
+    <div class="ck-datatable-filter-container col-sm-9 align-right{%  if datatable.options.filter_reload_table_on_change %} filter-onchange{% endif %}">
+        {% if filterForm is defined %}
+            {% for i in filterForm.children %}
+                {% if i.vars.name not in ["dofilter", "_token"] %}
+                    {{ form_label(i) }} {{ form_widget(i) }}
+                {% endif %}
+            {% endfor %}
+            {{ form_widget(filterForm.dofilter) }}
+            {{ form_rest(filterForm) }}
+        {% endif %}
+    </div>
+    {% endblock %}
+
+    {% block tableContainer -%}
+        <table id="{{ datatable.tableId }}_table" class="resultList"></table>
+    {%- endblock %}
+</div>

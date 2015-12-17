@@ -1,0 +1,29 @@
+&.layout-3-columns-bottom-filter-solo-top {
+
+  .ck-datatable-filter-container {
+    text-align: left;
+    padding: 0;
+    margin-bottom: 5px;
+  }
+
+  .datatable-length-container {
+    .dataTables_length {
+      padding-top: 0.755em;
+      text-align: right;
+      float: right;
+    }
+  }
+}
+
+table.dataTable {
+  border-collapse: collapse;
+  &.no-footer {
+    border-bottom: none;
+  }
+
+  thead th{
+    padding: 0;
+    padding-right: 20px;
+    border-bottom: none;
+  }
+}
