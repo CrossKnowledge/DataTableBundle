@@ -59,7 +59,7 @@ Add these two lines in your layout:
 <link rel="stylesheet" href="{{ asset('/bundles/crossknowledgedatatable/vendor/datatables/media/css/jquery.dataTables.min.css') }}"/>
 <link rel="stylesheet" href="{{ asset('/bundles/crossknowledgedatatable/assets/css/ckdatable.css') }}"/>
 <script src="{{ asset('/bundles/crossknowledgedatatable/vendor/datatables/media/js/jquery.dataTables.js') }}"/>
-<script src="{{ asset('/bundles/crossknowledgedatatable/assets/js/ckdatable.js')"></script>
+<script src="{{ asset('/bundles/crossknowledgedatatable/assets/js/ckdatable.js') }}"></script>
 ```
 **Note:** if you are not using Twig, then it is no problem. What you need is to
 add the two JavaScript files above loaded at some point in your web page, and optionnaly the custom styles.
@@ -204,9 +204,8 @@ class FilterableTable extends AbstractTable
      */
     public function buildColumns(ColumnBuilder $builder)
     {
-        $authChecker = $this->authorizationChecker;
-
         $builder->add('FirstName', new Column('Firstname'))
+                ->add('LastName', new Column('Name'))
                 ->add('status', (new Column('Activity status'))->setFormatValueCallback(function($value, array $row) {
                     if ($value=="" || $value=="not_started") {
                         return 'Not started';
@@ -214,7 +213,7 @@ class FilterableTable extends AbstractTable
 
                     return 'Started';
                 }))
-                ->add('LastName', new Column('Name'));
+
     }
     /**
      * @inheritdoc
@@ -229,12 +228,12 @@ class FilterableTable extends AbstractTable
         $filterValue = $this->currentRequest->customFilter->get('status')->getData();
         if  ($filterValue=='not_started') {
             return [
-                ["FirstName" => "Baguette", "LastName" => "Bread"],
+                ["FirstName" => "Baguette", "LastName" => "Bread", "status" => "not_started"],
             ]
         } else {//All
             return [
-                ["FirstName" => "Foo", "LastName" => "Bar", "status" => ],
-                ["FirstName" => "Baguette", "LastName" => "Bread"],
+                ["FirstName" => "Foo", "LastName" => "Bar", , "status" => "not_started"],
+                ["FirstName" => "Baguette", "LastName" => "Bread", "status" => "all"],
             ]
         }
     }
