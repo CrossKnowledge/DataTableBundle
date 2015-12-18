@@ -1,6 +1,8 @@
 CrossKnowledge DataTable Bundle
 ===============================
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/01db10c5-52ff-4b01-a35f-3aee473935e6/big.png)](https://insight.sensiolabs.com/projects/01db10c5-52ff-4b01-a35f-3aee473935e6) [![Build Status](https://travis-ci.org/CrossKnowledge/DataTableBundle.svg?branch=master)](https://travis-ci.org/CrossKnowledge/DataTableBundle) [![Total Downloads](https://poser.pugx.org/crossknowledge/datatable-bundle/downloads.svg)](https://packagist.org/packages/crossknowledge/datatable-bundle) [![Latest Stable Version](https://poser.pugx.org/crossknowledge/datatable-bundle/v/stable.svg)](https://packagist.org/packages/crossknowledge/datatable-bundle)
+
 The CrossKnowledge/DataTableBundle aims to integrates datatables.net into Symfony regardless of the data format/ORM(Propel/Doctrine)
 
 Features:
@@ -17,8 +19,6 @@ Features:
 Dependencies not listed in composer.json / bower.json :
 
 - jquery must be available and compatible with datatables.net (jquery >=1.7.0 for datatables 1.10.2 for instance)
-
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/01db10c5-52ff-4b01-a35f-3aee473935e6/big.png)](https://insight.sensiolabs.com/projects/01db10c5-52ff-4b01-a35f-3aee473935e6) [![Build Status](https://travis-ci.org/CrossKnowledge/DataTableBundle.svg?branch=master)](https://travis-ci.org/CrossKnowledge/DataTableBundle) [![Total Downloads](https://poser.pugx.org/crossknowledge/datatable-bundle/downloads.svg)](https://packagist.org/packages/crossknowledge/datatable-bundle) [![Latest Stable Version](https://poser.pugx.org/crossknowledge/datatable-bundle/v/stable.svg)](https://packagist.org/packages/crossknowledge/datatable-bundle)
 
 Documentation
 -------------
