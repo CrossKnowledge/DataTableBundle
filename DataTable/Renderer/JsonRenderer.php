@@ -3,7 +3,6 @@
 namespace CrossKnowledge\DataTableBundle\DataTable\Renderer;
 
 use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
-use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class JsonRenderer implements RendererInterface

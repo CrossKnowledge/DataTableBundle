@@ -2,7 +2,6 @@
 
 namespace CrossKnowledge\DataTableBundle\Twig;
 
-use CrossKnowledge\DataTableBundle\DataTable\Renderer\RendererInterface;
 use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
 use Symfony\Component\DependencyInjection\Container;
 

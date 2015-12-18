@@ -31,4 +31,3 @@ services:
     crossknowledge_datatable.twig_renderer:
         class: CrossKnowledge\DataTableBundle\DataTable\Renderer\TwigRenderer
         arguments: [@templating]
-        

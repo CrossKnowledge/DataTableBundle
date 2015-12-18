@@ -4,7 +4,6 @@
 namespace CrossKnowledge\DataTableBundle\DataTable\Formatter;
 
 
-use CrossKnowledge\DataTableBundle\DataTable\ColumnOptions;
 use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
 
 class DefaultFormatter implements FormatterInterface
