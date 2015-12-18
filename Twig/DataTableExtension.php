@@ -4,7 +4,6 @@ namespace CrossKnowledge\DataTableBundle\Twig;
 
 use CrossKnowledge\DataTableBundle\DataTable\Renderer\TwigRenderer;
 use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
-use Symfony\Component\DependencyInjection\Container;
 
 class DataTableExtension extends \Twig_Extension
 {

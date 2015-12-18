@@ -216,7 +216,7 @@ abstract class AbstractTable
      */
     public function getFilterForm()
     {
-        if (null==$this->filterForm) {
+        if (null===$this->filterForm) {
             $this->filterForm = $this->buildFilterForm(
                 $this->formFactory->createNamedBuilder($this->getTableId().'_filter')
                     ->add('dofilter', 'button')
