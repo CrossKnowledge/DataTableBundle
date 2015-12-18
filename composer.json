@@ -1,7 +1,8 @@
 {
   "name": "crossknowledge/datatable-bundle",
   "description": "Server side implementation of datatables.net library for Symfony2",
-  "type": "project",
+  "type": "symfony-bundle",
+  "license": "MIT",
   "keywords": [
     "datatables.net",
     "Datatables",
