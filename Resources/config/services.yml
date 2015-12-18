@@ -4,7 +4,7 @@ services:
 
     crossKnowledge.datatable.twig_extension:
         class: CrossKnowledge\DataTableBundle\Twig\DataTableExtension
-        arguments: [@service_container]
+        arguments: [@crossknowledge_datatable.twig_renderer]
         tags:
           - { name: twig.extension }
 
@@ -30,5 +30,5 @@ services:
 
     crossknowledge_datatable.twig_renderer:
         class: CrossKnowledge\DataTableBundle\DataTable\Renderer\TwigRenderer
-        arguments: [@templating]
+        arguments: [@twig]
 

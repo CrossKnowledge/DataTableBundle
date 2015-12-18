@@ -2,19 +2,20 @@
 
 namespace CrossKnowledge\DataTableBundle\Twig;
 
+use CrossKnowledge\DataTableBundle\DataTable\Renderer\TwigRenderer;
 use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
 use Symfony\Component\DependencyInjection\Container;
 
 class DataTableExtension extends \Twig_Extension
 {
     /**
-     * @var Container
+     * @var TwigRenderer
      */
-    protected $container;
+    protected $renderer;
 
-    public function __construct(Container $container)
+    public function __construct(TwigRenderer $renderer)
     {
-        $this->container = $container;
+        $this->renderer = $renderer;
     }
     /**
      * {@inheritdoc}
@@ -35,6 +36,6 @@ class DataTableExtension extends \Twig_Extension
 
     public function renderTable(AbstractTable $table)
     {
-        return $this->container->get('crossknowledge_datatable.twig_renderer')->render($table);
+        return $this->renderer->render($table);
     }
 }

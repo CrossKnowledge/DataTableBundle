@@ -15,9 +15,16 @@ class TwigRendererTest extends \PHPUnit_Framework_TestCase
             'template' => 'example.html.twig'
         ]);
 
-        $twig = $this->getMockBuilder('Symfony\Bundle\TwigBundle\TwigEngine')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $twig = $this->getMockBuilder('\Twig_Environment')
+                    ->disableOriginalConstructor()
+                    ->getMock();
+
+        $templateMock = $this->getMockBuilder(\Twig_TemplateInterface::class)
+                             ->disableOriginalConstructor()
+                             ->getMock();
+
+        $twig->expects($this->once())->method('loadTemplate')
+             ->will($this->returnValue($templateMock));
 
         $renderer = new TwigRenderer($twig);
         $renderer->render($mock);

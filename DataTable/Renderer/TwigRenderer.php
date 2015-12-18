@@ -9,15 +9,15 @@ class TwigRenderer implements RendererInterface
 {
     protected $twig;
 
-    public function __construct(TwigEngine $engine)
+    public function __construct(\Twig_Environment $env)
     {
-        $this->twig = $engine;
+        $this->twig = $env;
     }
 
     public function render(AbstractTable $table)
     {
-        return $this->twig->render(
-            $table->getOptions()['template'],
+        $template = $this->twig->loadTemplate($table->getOptions()['template']);
+        return $template->render(
             $table->buildView()
         );
     }

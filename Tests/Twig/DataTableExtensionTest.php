@@ -26,15 +26,10 @@ class DataTableExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $tableMock = $this->getDataTableMock();
         $rendererMock = $this->getMockBuilder('CrossKnowledge\DataTableBundle\DataTable\Renderer\TwigRenderer')
-                             ->disableOriginalConstructor()
-                             ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $container = new ContainerBuilder();
-        $container->set('crossknowledge_datatable.twig_renderer', $rendererMock);
-
-        $container = $this->compileContainer($container);
-
-        $twigExtension = new DataTableExtension($container);
+        $twigExtension = new DataTableExtension($rendererMock);
         $function = $this->getFunctionByName($twigExtension, 'render_table');
         $this->assertNotNull($function, 'Function "render_table" is not registered in twig_extension');
 
