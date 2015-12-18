@@ -6,7 +6,6 @@ use CrossKnowledge\DataTableBundle\DataTable\Formatter\FormatterInterface;
 use CrossKnowledge\DataTableBundle\DataTable\Table\Layout\Bootstrap;
 use CrossKnowledge\DataTableBundle\DataTable\Table\Layout\DataTableLayoutInterface;
 use CrossKnowledge\DataTableBundle\Table\Element\Column;
-use Symfony\Component\Form\Button;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;

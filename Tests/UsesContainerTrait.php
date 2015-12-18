@@ -37,3 +37,4 @@ trait UsesContainerTrait
                     ->getMock();
     }
 }
+
