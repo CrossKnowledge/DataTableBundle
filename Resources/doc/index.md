@@ -127,6 +127,7 @@ It's as simple as calling:
 {% else %}
     {{ 'No items found' | trans }}
 {% endif %}
+```
 
 ### Customizing table layout
 
