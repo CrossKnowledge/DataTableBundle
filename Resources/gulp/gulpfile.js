@@ -27,11 +27,40 @@ var moduleconfig = {
     vendorRoot: './bower_components',
     publicVendorRoot: '../public/vendor',
     scripts: ['scripts/**/*.js'],
-    styles: ['sass/**/*.scss']
+    styles: ['sass/**/*.scss'],
+    tmp: 'scripts/tmp'
 };
 
-gulp.task('scripts', function () {
+gulp.task('scripts-ie8', function () {
+    inject = require('gulp-inject-string');
     var sourceFile = moduleconfig.srcRoot + '/scripts/main.js';
+
+    //Copy file
+    gulp.src(moduleconfig.srcRoot + '/scripts/_ckdatatable.js').pipe(gulp.dest(moduleconfig.tmp));
+
+    //Inject the require
+    gulp.src(sourceFile)
+        .pipe(inject.after("var datatables = require('./_ckdatatable');", '\nrequire("babel-polyfill");\n'))
+        .pipe(gulp.dest(moduleconfig.tmp));
+
+    var tmpFile = moduleconfig.tmp + '/main.js';
+
+    return browserify(tmpFile, {debug: true}).transform("babelify", {presets: ["es2015"]})
+        .bundle().on('error', function (err) {
+            gutil.log('Error in ' + tmpFile + ':');
+            gutil.log(gutil.colors.red(err));
+            this.emit('end');
+        })
+        .pipe(source(moduleconfig.moduleName  + '_ie8.js'))
+        .pipe(buffer())
+        .pipe(uglify())
+        .pipe(gulp.dest(moduleconfig.compiledRoot + '/js'));
+
+});
+
+gulp.task('scripts-other', function () {
+    var sourceFile = moduleconfig.srcRoot + '/scripts/main.js';
+
     return browserify(sourceFile, {debug: true}).transform("babelify", {presets: ["es2015"]})
         .bundle().on('error', function (err) {
             gutil.log('Error in ' + sourceFile + ':');
@@ -42,7 +71,12 @@ gulp.task('scripts', function () {
         .pipe(buffer())
         .pipe(uglify())
         .pipe(gulp.dest(moduleconfig.compiledRoot + '/js'));
+
 });
+
+
+gulp.task('scripts', ['scripts-ie8', 'scripts-other']);
+
 
 gulp.task('standalone-libs', function() {
     var standaloneVendors = ['datatables'];
@@ -80,7 +114,9 @@ gulp.task('sass', function () {
 gulp.task('build', function (callback) {
         runSequence(
             'clean',
+            'clean-tmp',
             ['sass', 'scripts', 'standalone-libs'],
+            'clean-tmp',
             callback
         );
     }
@@ -93,6 +129,12 @@ gulp.task('watch', function () {
 
 gulp.task('clean', function () {
     return del([moduleconfig.compiledRoot + '/*'], {
+        force: true
+    });
+});
+
+gulp.task('clean-tmp', function () {
+    return del([moduleconfig.tmp], {
         force: true
     });
 });

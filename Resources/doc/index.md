@@ -64,6 +64,7 @@ Add these two lines in your layout:
 **Note:** if you are not using Twig, then it is no problem. What you need is to
 add the two JavaScript files above loaded at some point in your web page, and optionnaly the custom styles.
 
+**Note:** For IE8 you must use the file /bundles/crossknowledgedatatable/assets/js/ckdatable-ie8.js instead of /bundles/crossknowledgedatatable/assets/js/ckdatable.js
 
 ### Creating a table
 
