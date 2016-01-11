@@ -40,7 +40,7 @@ gulp.task('scripts-ie8', function () {
 
     //Inject the require
     gulp.src(sourceFile)
-        .pipe(inject.after("var datatables = require('./_ckdatatable');", '\nrequire("babel-polyfill");\n'))
+        .pipe(inject.before("var datatables = require('./_ckdatatable');", '\nrequire("babel-polyfill");\n'))
         .pipe(gulp.dest(moduleconfig.tmp));
 
     var tmpFile = moduleconfig.tmp + '/main.js';
