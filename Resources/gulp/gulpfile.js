@@ -52,8 +52,6 @@ gulp.task('scripts-ie8', function () {
             this.emit('end');
         })
         .pipe(source(moduleconfig.moduleName  + '_ie8.js'))
-        .pipe(buffer())
-        .pipe(uglify())
         .pipe(gulp.dest(moduleconfig.compiledRoot + '/js'));
 
 });
