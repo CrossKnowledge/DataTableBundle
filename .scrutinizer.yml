@@ -24,6 +24,7 @@ tools:
             - Resources/public
             - vendor
     php_mess_detector: true
+    
     php_pdepend:
         excluded_dirs:
             - Resources/public
