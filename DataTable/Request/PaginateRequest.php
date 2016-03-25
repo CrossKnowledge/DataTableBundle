@@ -62,7 +62,7 @@ class PaginateRequest
         $colnameOrder = [];
 
         //Limit: support single column ordering
-        if (!empty($numericOrder[0]) && !empty($numericOrder[0]['column'])) {
+        if (!empty($numericOrder[0]) && isset($numericOrder[0]['column'])) {
             $colIndex = 0;
             $sortColIndex = $numericOrder[0]['column'];
             foreach ($table->getColumns() as $colid=>$column) {
