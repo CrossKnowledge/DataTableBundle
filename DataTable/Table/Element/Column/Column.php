@@ -6,6 +6,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Column implements ColumnInterface
 {
+    const TYPE = 'string';
+
     /**
      * Column field info that might be used client side
      *
@@ -56,6 +58,7 @@ class Column implements ColumnInterface
     {
         $resolver->setDefined('title');
         $resolver->setDefault('auto_escape', true);
+        $resolver->setDefault('type', static::TYPE);
         $resolver->setDefined(static::$clientSideColumnOptions);
     }
     /**
@@ -98,7 +101,7 @@ class Column implements ColumnInterface
             return $value;
         }
     }
-    
+
     /**
      * @return \Closure
      */
