@@ -16,7 +16,7 @@ class DateTimeColumnTest extends \PHPUnit_Framework_TestCase
         $column = new DateTimeColumn("test", $options);
 
         $this->assertEquals($expected, $column->formatCell(
-            $input, []
+            $input, [], 'view'
         ));
     }
 

@@ -33,6 +33,6 @@ class DefaultFormatterTest extends \PHPUnit_Framework_TestCase
             'unescapedcolumn' => '<testval',
         ];
 
-        $this->assertEquals($formatter->formatRow($row, $tableMock), $expected);
+        $this->assertEquals($formatter->formatRow($row, $tableMock, 'view'), $expected);
     }
 }
