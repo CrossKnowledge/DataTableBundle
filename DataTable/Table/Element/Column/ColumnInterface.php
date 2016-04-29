@@ -31,7 +31,7 @@ interface ColumnInterface
     /**
      * @return string the content of the cell
      */
-    public function formatCell($value, array $rowData);
+    public function formatCell($value, array $rowData, $context);
     /**
      * Sets the column options
      *

@@ -16,7 +16,7 @@ class DefaultFormatter implements FormatterInterface
      *
      * @return mixed
      */
-    public function formatRow($row, AbstractTable $table)
+    public function formatRow($row, AbstractTable $table, $context)
     {
         $cols = $table->getColumns();
         $newRow = [];
@@ -31,7 +31,7 @@ class DefaultFormatter implements FormatterInterface
                 $value = $rawValue;
             }
 
-            $colVal = $column->formatCell($value, $row);//Column definition
+            $colVal = $column->formatCell($value, $row, $context);//Column definition
             $newRow[$colIdentifier] = $colVal;
         }
 

@@ -17,7 +17,7 @@ class DateTimeColumn extends Column
         $resolver->setRequired('output_format');
     }
 
-    public function formatCell($value, array $row)
+    public function formatCell($value, array $row, $context)
     {
         if (empty($value)) {
             return '';

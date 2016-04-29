@@ -7,5 +7,5 @@ use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
 
 interface FormatterInterface
 {
-    public function formatRow($row, AbstractTable $table);
+    public function formatRow($row, AbstractTable $table, $context);
 }
