@@ -18,7 +18,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
             '', [
                 'id_field' => '12',
                 'label_field' => 'image.png'
-            ]
+            ], 'view'
         ));
     }
 

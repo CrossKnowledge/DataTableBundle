@@ -19,10 +19,10 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
             return $val.'ok';
         });
 
-        $this->assertEquals('testok', $column->formatCell('test', []));
+        $this->assertEquals('testok', $column->formatCell('test', [], 'view'));
         $column->setFormatValueCallback(null);
 
-        $this->assertEquals('test', $column->formatCell('test', []), 'callback should have been resetted');
+        $this->assertEquals('test', $column->formatCell('test', [], 'view'), 'callback should have been resetted');
     }
 
     public function testBasicGetterSetter()
