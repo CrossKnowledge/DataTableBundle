@@ -82,13 +82,15 @@ class Column implements ColumnInterface
         $this->options['title'] = $title;
         return $this;
     }
+
     /**
-     * Format a celll content for this column
+     * Format a cell content for this column
      * @param $value
-     * @param $rowData
+     * @param array $rowData
+     * @param $context
      * @return mixed
      */
-    public function formatCell($value, array $rowData)
+    public function formatCell($value, array $rowData, $context)
     {
         if (is_callable($this->formatValueCallback)) {
             return call_user_func_array($this->formatValueCallback, [$value, $rowData]);
@@ -96,6 +98,7 @@ class Column implements ColumnInterface
             return $value;
         }
     }
+    
     /**
      * @return \Closure
      */

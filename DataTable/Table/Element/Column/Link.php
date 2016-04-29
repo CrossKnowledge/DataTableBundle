@@ -25,7 +25,7 @@ class Link extends Column
     /**
      * Build a link
      */
-    public function formatCell($value, array $rowData)
+    public function formatCell($value, array $rowData, $context)
     {
         $value = parent::formatCell($value, $rowData);
         $url = call_user_func_array($this->options['UrlCallback'], [$value, $rowData]);

@@ -17,6 +17,8 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 abstract class AbstractTable
 {
+    const VIEW_CONTEXT   = 'view';
+
     /**
      * @var Router
      */
@@ -174,11 +176,11 @@ abstract class AbstractTable
     /**
      * @return string[] should return the content to insert in the rows key(colname) => value(string / html / any)
      */
-    public function getOutputRows()
+    public function getOutputRows($context = self::VIEW_CONTEXT)
     {
         $t = [];
         foreach ($this->getDataIterator() as $item) {
-            $formatted = $this->formatter->formatRow($item,  $this);
+            $formatted = $this->formatter->formatRow($item,  $this, $context);
             $t[] = $formatted;
         }
 
