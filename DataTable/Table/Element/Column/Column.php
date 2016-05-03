@@ -93,12 +93,12 @@ class Column implements ColumnInterface
     public function formatCell($value, array $rowData, $context)
     {
         if (is_callable($this->formatValueCallback)) {
-            return call_user_func_array($this->formatValueCallback, [$value, $rowData]);
+            return call_user_func_array($this->formatValueCallback, [$value, $rowData, $context]);
         } else{
             return $value;
         }
     }
-    
+
     /**
      * @return \Closure
      */
