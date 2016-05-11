@@ -4,15 +4,23 @@
     text-align: left;
     padding: 0;
     margin-bottom: 5px;
+
   }
 
   .datatable-length-container {
     .dataTables_length {
-      padding-top: 0.755em;
+      padding-top: .255em;
       text-align: right;
       float: right;
     }
   }
+    .datatable-paginate-container {
+      .dataTables_paginate {
+        float: none;
+        text-align: center;
+        padding-top: 0;
+      }
+    }
 }
 
 table.dataTable {
