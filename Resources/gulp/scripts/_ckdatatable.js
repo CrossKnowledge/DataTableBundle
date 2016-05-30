@@ -72,7 +72,6 @@
             this.filterableContainer.find('input').on('keypress', (e) => {
                 if(e.keyCode==13) {
                     this.table.ajax.reload();
-                    event.preventDefault();
                     return false;
                  }
             });
