@@ -29,6 +29,6 @@ class Link extends Column
     {
         $value = parent::formatCell($value, $rowData, $context);
         $url = call_user_func_array($this->options['UrlCallback'], [$value, $rowData]);
-        return '<a href="'.$url.'" alt="'.$rowData[$this->options['LinkTextField']].'">'.$rowData[$this->options['LinkTextField']].'</a>';
+        return '<a href="'.$url.'" alt="'.htmlentities($rowData[$this->options['LinkTextField']], ENT_COMPAT | ENT_HTML401, 'UTF-8').'">'.htmlentities($rowData[$this->options['LinkTextField']], ENT_COMPAT | ENT_HTML401, 'UTF-8').'</a>';
     }
 }
