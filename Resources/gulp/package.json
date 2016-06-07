@@ -24,7 +24,7 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "yargs": "^3.31.0",
-    "babel-polyfill": "^6.3.14",
+    "babel-polyfill": "6.3.14",
     "gulp-inject-string":"^1.1.0"
   }
 }
