@@ -122,12 +122,15 @@
                 this.filterableContainer.data('dom-positionning-complete', true);
             }
 
-            var pagingSize = this.element.find('.dataTables_paginate').find('.paginate_button:not(.next,.previous)').size();
-            //Empty paging divs if only one page
-            if (pagingSize===1) {
-                this.element.find('div.dataTables_paginate')[0].style.display = "none";
-            } else {
-                this.element.find('div.dataTables_paginate')[0].style.display = "block";
+            let paginate = this.element.find('.dataTables_paginate');
+            if (paginate.length > 0) {
+                //Empty paging divs if only one page
+                let pagingSize = paginate.find('.paginate_button:not(.next,.previous)').size();
+                if (pagingSize === 1) {
+                    paginate[0].style.display = 'none';
+                } else {
+                    paginate[0].style.display = 'block';
+                }
             }
         }
         /**
