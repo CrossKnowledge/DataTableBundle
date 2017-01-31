@@ -7,6 +7,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DateTimeColumn extends Column
 {
+    const TYPE = 'datetime';
+    
     /**
      * @param OptionsResolver $resolver
      */

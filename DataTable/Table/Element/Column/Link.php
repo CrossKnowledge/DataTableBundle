@@ -7,6 +7,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Link extends Column
 {
+    const TYPE = 'link';
+    
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
