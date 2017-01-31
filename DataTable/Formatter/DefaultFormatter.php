@@ -18,7 +18,7 @@ class DefaultFormatter implements FormatterInterface
      */
     public function formatRow($row, AbstractTable $table, $context)
     {
-        $cols = $table->getColumns();
+        $cols = $table->getColumns($context);
         $newRow = [];
 
         foreach ($cols as $colIdentifier=>$column) {
