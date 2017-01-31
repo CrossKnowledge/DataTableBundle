@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 abstract class AbstractTable
 {
     const VIEW_CONTEXT   = 'view';
-
+    
     /**
      * @var Router
      */
@@ -43,8 +43,8 @@ abstract class AbstractTable
     /**
      * @var Column[]
      */
-    protected $columns;
-    protected $columnsInitialized = false;
+    protected $columns = array();
+    protected $columnsInitialized = array();
 
     /**
      * @var OptionsResolver
@@ -77,7 +77,7 @@ abstract class AbstractTable
         $this->authorizationChecker = $checker;
         $this->layout = null === $layout ? new Bootstrap() : $layout;
         $this->optionsResolver = new OptionsResolver();
-        $this->initColumnsDefinitions();
+        //$this->initColumnsDefinitions();
         $this->setDefaultOptions($this->optionsResolver);
         $this->configureOptions($this->optionsResolver);
         $this->options = $this->optionsResolver->resolve();
@@ -95,7 +95,7 @@ abstract class AbstractTable
      * @return array key must be the column field name,
      *               value must be an array of options for https://datatables.net/reference/option/columns
      */
-    abstract public function buildColumns(ColumnBuilder $builder);
+    abstract public function buildColumns(ColumnBuilder $builder, $context = self::VIEW_CONTEXT);
     /**
      * Must return a \Traversable a traversable element that must contain for each element an ArrayAccess such as
      *      key(colname) => value(db value)
@@ -186,12 +186,13 @@ abstract class AbstractTable
 
         return $t;
     }
+    
     /**
      * @see getColumns() same as getColumns but filtered for datatable JS API
      */
-    public function getClientSideColumns()
+    public function getClientSideColumns($context = self::VIEW_CONTEXT)
     {
-        $columns = $this->getColumns();
+        $columns = $this->getColumns($context);
         $clientSideCols = [];
         foreach ($columns as $colid=>$column) {
             $clientSideCols[$colid] = $column->getClientSideDefinition();
@@ -268,21 +269,24 @@ abstract class AbstractTable
     /**
      * @return \CrossKnowledge\DataTableBundle\Table\Element\Column[]
      */
-    public function getColumns()
+    public function getColumns($context = self::VIEW_CONTEXT)
     {
-        return $this->columns;
+        if(!array_key_exists($context, $this->columns)) {
+            $this->initColumnsDefinitions($context);
+        }
+        return $this->columns[$context];
     }
     /**
      * Builds the columns definition
      */
-    protected function initColumnsDefinitions()
+    protected function initColumnsDefinitions($context = self::VIEW_CONTEXT)
     {
         $builder = new ColumnBuilder();
 
-        $this->buildColumns($builder);
+        $this->buildColumns($builder, $context);
 
-        $this->columns = $builder->getColumns();
-        $this->columnsInitialized =  true;
+        $this->columns[$context] = $builder->getColumns();
+        $this->columnsInitialized[$context] =  true;
     }
     /**
      * Sets the table identifier
