@@ -14,14 +14,20 @@ class JsonRendererTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $mock->expects($this->once())
-            ->method('buildView')
+            ->method('getUnfilteredCount')
+            ->will($this->returnValue(
+                $unfilteredCount
+            ));
+
+        $mock->expects($this->once())
+            ->method('getFilteredCount')
+            ->will($this->returnValue($filteredCount));
+
+        $mock->expects($this->once())
+            ->method('getOutputRows')
             ->will($this->returnValue([
-                'data' => [
                     ['col1' => 'mytestdata']
-                ],
-                'unfilteredRowsCount' => $unfilteredCount,
-                'filteredRowsCount' => $filteredCount
-            ]));
+                ]));
 
         return $mock;
     }
