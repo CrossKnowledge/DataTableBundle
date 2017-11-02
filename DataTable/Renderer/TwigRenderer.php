@@ -16,8 +16,14 @@ class TwigRenderer implements RendererInterface
     public function render(AbstractTable $table)
     {
         $template = $this->twig->loadTemplate($table->getOptions()['template']);
-        return $template->render(
-            $table->buildView(false)
-        );
+        $data = [
+            'columns' => $table->getClientSideColumns(),
+            'datatable' => $table,
+        ];
+        if ($table->getOptions()['has_filter_form'])
+        {
+            $data['filterForm'] = $table->getFilterForm()->createView();
+        }
+        return $template->render($data);
     }
 }
