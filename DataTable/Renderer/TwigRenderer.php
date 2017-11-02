@@ -17,7 +17,7 @@ class TwigRenderer implements RendererInterface
     {
         $template = $this->twig->loadTemplate($table->getOptions()['template']);
         return $template->render(
-            $table->buildView()
+            $table->buildView(false)
         );
     }
 }
