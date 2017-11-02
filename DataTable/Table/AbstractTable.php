@@ -227,31 +227,7 @@ abstract class AbstractTable
         }
 
         return $this->filterForm;
-    }    
-    /**
-     * @param bool $loadData
-     * @return array key value of variables accessible for renderers.
-     */
-    public function buildView($loadData = true)
-    {
-        $viewParameters = [
-            'columns' => $this->getClientSideColumns(),
-            'data'   => [],
-            'datatable' => $this,
-            'unfilteredRowsCount' => false,
-            'filteredRowsCount' => false,
-        ];
-        if (!$this->getOptions()['has_filter_form'] || $loadData) {
-            $viewParameters['data'] = $this->getOutputRows();
-            $viewParameters['unfilteredRowsCount'] = $this->getUnfilteredCount();
-            $viewParameters['filteredRowsCount'] = $this->getFilteredCount();
-        }
-        else if ($this->getOptions()['has_filter_form']) {
-            $viewParameters['filterForm'] = $this->getFilterForm()->createView();
-        }
-        return $viewParameters;
     }
-
     /**
      * Sets the formatter
      *
