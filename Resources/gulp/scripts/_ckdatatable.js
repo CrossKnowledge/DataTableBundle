@@ -1,3 +1,4 @@
+
 (function ($) {
     /**
      * Bridge between Datatable JS Api & Crossknowledge's symfony bundles
@@ -14,17 +15,33 @@
          */
         constructor($element) {
             this.setElement($element);
-            //Prevent an already existing dataTable to be register
-            if ($element.data('cktable-initialized') == undefined) {
-                this.initUsingContainer();
-                $element.data('cktable-initialized', true);
+            if (!this.filterableContainer.hasClass('no-init-loading')){
+                this.initTable();
             }
         }
+        initTable(){
+            //Prevent an already existing dataTable to be register
+            if (this.element.data('cktable-initialized') == undefined) {
+                this.initUsingContainer();
+                this.element.data('cktable-initialized', true);
+            }
+        }
+        reloadTable(){
+            if (!this.table){
+                this.initTable();
+            }
+            else{
+                this.table.ajax.reload();
+            }
+            return false;
+        }
+
         /**
          * Set the main wrapper that contains infos as data attributes
          */
         setElement($element) {
             this.element = $element;
+            this.filterableContainer = this.element.find('.ck-datatable-filter-container');
             this.initFilterable();
             this.initPerPage();
         }
@@ -43,38 +60,33 @@
          */
         initFilterable() {
 
-            this.filterableContainer = this.element.find('.ck-datatable-filter-container');
             this.filterableContainer.data('dom-positionning-complete', false);
             this.filterableContainer.find('button').on('click', () => {
-                this.table.ajax.reload();
-                return false;
-            });
+                return this.reloadTable();
+        });
 
             if (this.filterableContainer.hasClass('filter-onchange')) {
                 this.filterableContainer.find('select').on('change', () => {
-                    this.table.ajax.reload();
-                    return false;
-                });
+                    return this.reloadTable();
+            });
                 this.timer = false;
                 this.filterableContainer.find('input').on('keyup', () => {
                     if (this.timer != false) {
-                        clearTimeout(this.timer);
-                        this.timer = false;
-                    }
+                    clearTimeout(this.timer);
+                    this.timer = false;
+                }
 
-                    this.timer = setTimeout(() => {
-                        this.table.ajax.reload();
-                        this.timer = false;
-                    }, 400);
-                });
+                this.timer = setTimeout(() => {
+                    return this.reloadTable();
+            }, 400);
+            });
             }
 
             this.filterableContainer.find('input').on('keypress', (e) => {
                 if(e.keyCode==13) {
-                    this.table.ajax.reload();
-                    return false;
-                 }
-            });
+                return this.reloadTable();
+            }
+        });
         }
         /**
          * Format this.data for datatable js api constructor
