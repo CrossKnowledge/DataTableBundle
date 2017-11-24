@@ -128,6 +128,7 @@ abstract class AbstractTable
             'layout' => $this->layout,
             'client_side_filtering' => false,
             'filter_reload_table_on_change' => false,
+            'no_init_loading' => false,
             'template' => 'CrossKnowledgeDataTableBundle::default_table.html.twig',
             'data_table_custom_options' => [],
             'has_filter_form' => function() {
@@ -228,26 +229,6 @@ abstract class AbstractTable
 
         return $this->filterForm;
     }
-    /**
-     * @return array key value of variables accessible for renderers.
-     */
-    public function buildView()
-    {
-        $viewParameters = [
-            'columns' => $this->getClientSideColumns(),
-            'data'   => $this->getOutputRows(),
-            'datatable' => $this,
-            'unfilteredRowsCount' => $this->getUnfilteredCount(),
-            'filteredRowsCount' => $this->getFilteredCount(),
-        ];
-
-        if ($this->getOptions()['has_filter_form']) {
-            $viewParameters['filterForm'] = $this->getFilterForm()->createView();
-        }
-
-        return $viewParameters;
-    }
-
     /**
      * Sets the formatter
      *

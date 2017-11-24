@@ -11,7 +11,7 @@
      data-cktable-columns="{{ columns|raw|json_encode }}">
 
     {% block filterContainer %}
-    <div class="ck-datatable-filter-container col-sm-9 align-right{%  if datatable.options.filter_reload_table_on_change %} filter-onchange{% endif %}">
+    <div class="ck-datatable-filter-container col-sm-9 align-right{%  if datatable.options.no_init_loading %} no-init-loading{% endif %}{%  if datatable.options.filter_reload_table_on_change %} filter-onchange{% endif %}">
         {% if filterForm is defined %}
             {% for i in filterForm.children %}
                 {% if i.vars.name not in ["dofilter", "_token"] %}

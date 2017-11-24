@@ -9,14 +9,10 @@ class JsonRenderer implements RendererInterface
 {
     public function render(AbstractTable $table)
     {
-        $viewVars = $table->buildView();
         $jsonVars = [];
-        $jsonVars['recordsTotal'] = $viewVars['unfilteredRowsCount'];
-        if ($viewVars['filteredRowsCount']!==false) {
-            $jsonVars['recordsFiltered'] = $viewVars['filteredRowsCount'];
-        } else {
-            $jsonVars['recordsFiltered'] = $viewVars['unfilteredRowsCount'];
-        }
+        $jsonVars['recordsTotal'] = $table->getUnfilteredCount();
+        $filterCount = $table->getFilteredCount();
+        $jsonVars['recordsFiltered'] = $filterCount!==false ? $filterCount : $jsonVars['recordsTotal'];
         $jsonVars['data'] = array_map(
             function ($item) {
                 $t = [];
@@ -26,7 +22,7 @@ class JsonRenderer implements RendererInterface
 
                 return $t;
             },
-            $viewVars['data']
+            $table->getOutputRows()
         );
 
         return json_encode($jsonVars);
