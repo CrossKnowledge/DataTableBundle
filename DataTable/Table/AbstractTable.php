@@ -109,10 +109,11 @@ abstract class AbstractTable
     ];
      * Example:
     return new \PropelCollection();
-     *
+     *    
+     * @param string $context
      * @return \Traversable
      */
-    abstract public function getDataIterator();
+    abstract public function getDataIterator($context = self::VIEW_CONTEXT);
     /**
      * @return int the total number of rows regardless of filters
      */
@@ -180,7 +181,7 @@ abstract class AbstractTable
     public function getOutputRows($context = self::VIEW_CONTEXT)
     {
         $t = [];
-        foreach ($this->getDataIterator() as $item) {
+        foreach ($this->getDataIterator($context) as $item) {
             $formatted = $this->formatter->formatRow($item,  $this, $context);
             $t[] = $formatted;
         }
