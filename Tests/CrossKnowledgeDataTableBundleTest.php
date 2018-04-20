@@ -16,6 +16,15 @@ class CrossKnowledgeDataTableBundleTest extends \PHPUnit_Framework_TestCase
         $bundle = new CrossKnowledgeDataTableBundle();
         $bundle->build($container);
 
-        $this->assertInstanceOf(DatatablePass::class, $container->getCompilerPassConfig()->getBeforeOptimizationPasses()[0]);
+        $passes = array_values(
+            array_filter(
+                $container->getCompilerPassConfig()->getPasses(),
+                function ($pass) {
+                    return $pass instanceof DatatablePass;
+                }
+            )
+        );
+
+        $this->assertInstanceOf(DatatablePass::class, $passes[0]);
     }
 }
