@@ -224,7 +224,7 @@ abstract class AbstractTable
         if (null===$this->filterForm) {
             $this->filterForm = $this->buildFilterForm(
                 $this->formFactory->createNamedBuilder($this->getTableId().'_filter')
-                    ->add('dofilter', 'button')
+                    ->add('dofilter', \Symfony\Component\Form\Extension\Core\Type\ButtonType::class)
             )->getForm();
         }
 
