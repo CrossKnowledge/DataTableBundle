@@ -7,8 +7,9 @@ namespace CrossKnowledge\DataTableDundle\Tests;
 use CrossKnowledge\DataTableBundle\CrossKnowledgeDataTableBundle;
 use CrossKnowledge\DataTableBundle\DependencyInjection\Compiler\DatatablePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use PHPUnit\Framework\TestCase;
 
-class CrossKnowledgeDataTableBundleTest extends \PHPUnit_Framework_TestCase
+class CrossKnowledgeDataTableBundleTest extends TestCase
 {
     public function testPassIsRegistered()
     {

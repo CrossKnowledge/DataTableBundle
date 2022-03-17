@@ -6,8 +6,9 @@ namespace CrossKnowledge\DataTableDundle\Tests\DataTable;
 
 use CrossKnowledge\DataTableBundle\DataTable\DataTableRegistry;
 use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
+use PHPUnit\Framework\TestCase;
 
-class RegistryTest extends \PHPUnit_Framework_TestCase
+class RegistryTest extends TestCase
 {
     public function testRetrieveTableById()
     {

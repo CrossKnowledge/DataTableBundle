@@ -30,7 +30,7 @@ class DataTableExtension extends \Twig_Extension
 
     public function getName()
     {
-        return 'crossKnowledge.datatable.twig_extension';
+        return 'crossknowledge.datatable.twig_extension';
     }
 
     public function renderTable(AbstractTable $table)

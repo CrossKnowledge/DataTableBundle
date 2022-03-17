@@ -3,8 +3,9 @@ namespace CrossKnowledge\DataTableDundle\Tests\DataTable\Column;
 
 
 use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\Column;
+use PHPUnit\Framework\TestCase;
 
-class ColumnTest extends \PHPUnit_Framework_TestCase
+class ColumnTest extends TestCase
 {
     public function testUndefinedOptionThrowsException()
     {

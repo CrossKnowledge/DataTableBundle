@@ -6,8 +6,9 @@ namespace CrossKnowledge\DataTableDundle\Tests\DataTable\Renderer;
 
 use CrossKnowledge\DataTableBundle\DataTable\Renderer\TwigRenderer;
 use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\Column;
+use PHPUnit\Framework\TestCase;
 
-class TwigRendererTest extends \PHPUnit_Framework_TestCase
+class TwigRendererTest extends TestCase
 {
     public function testRenderWithFilters()
     {

@@ -3,11 +3,11 @@
 
 namespace CrossKnowledge\DataTableBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class DataTableController extends Controller
+class DataTableController extends AbstractController
 {
     /**
      * @param Request $request

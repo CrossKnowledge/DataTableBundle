@@ -10,8 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpFoundation\Request;
+use PHPUnit\Framework\TestCase;
 
-class DataTableControllerTest extends \PHPUnit_Framework_TestCase
+class DataTableControllerTest extends TestCase
 {
     use UsesContainerTrait;
 
