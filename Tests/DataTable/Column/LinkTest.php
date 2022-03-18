@@ -2,8 +2,9 @@
 namespace CrossKnowledge\DataTableDundle\Tests\DataTable\Column;
 
 use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\Link;
+use PHPUnit\Framework\TestCase;
 
-class LinkTest extends \PHPUnit_Framework_TestCase
+class LinkTest extends TestCase
 {
     /**
      * @dataProvider linkTestProvider

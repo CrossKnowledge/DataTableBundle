@@ -6,8 +6,9 @@ use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\Column;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormRegistry;
 use Symfony\Component\HttpFoundation\Request;
+use PHPUnit\Framework\TestCase;
 
-class PaginateRequestTest extends \PHPUnit_Framework_TestCase
+class PaginateRequestTest extends TestCase
 {
     public function testCreateFromHttpRequest()
     {
