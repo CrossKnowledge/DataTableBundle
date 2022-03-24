@@ -3,8 +3,9 @@
 namespace CrossKnowledge\DataTableDundle\Tests\DataTable\Renderer;
 
 use CrossKnowledge\DataTableBundle\DataTable\Renderer\JsonRenderer;
+use PHPUnit\Framework\TestCase;
 
-class JsonRendererTest extends \PHPUnit_Framework_TestCase
+class JsonRendererTest extends TestCase
 {
 
     protected function getTableMock($unfilteredCount, $filteredCount)
