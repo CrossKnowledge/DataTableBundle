@@ -1,14 +1,14 @@
 <?php
+
 namespace CrossKnowledge\DataTableDundle\Tests\Controller;
 
 require_once __DIR__.'/../UsesContainerTrait.php';
 
 use CrossKnowledge\DataTableBundle\Controller\DataTableController;
+use CrossKnowledge\DataTableBundle\DataTable\DataTableRegistry;
+use CrossKnowledge\DataTableBundle\DataTable\Renderer\JsonRenderer;
 use CrossKnowledge\DataTableDundle\Tests\UsesContainerTrait;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpFoundation\Request;
 use PHPUnit\Framework\TestCase;
 
@@ -16,10 +16,13 @@ class DataTableControllerTest extends TestCase
 {
     use UsesContainerTrait;
 
+    /**
+     * Test jsonAction from DataTableController.
+     */
     public function testJsonAction()
     {
         $tableMock = $this->getDataTableMock();
-        $registryMock = $this->getMockBuilder('CrossKnowledge\DataTableBundle\DataTable\DataTableRegistry')
+        $registryMock = $this->getMockBuilder(DataTableRegistry::class)
                              ->disableOriginalConstructor()
                              ->getMock();
 
@@ -27,7 +30,7 @@ class DataTableControllerTest extends TestCase
                      ->method('retrieveByTableId')
                      ->will($this->returnValue($tableMock));
 
-        $rendererMock = $this->getMockBuilder('CrossKnowledge\DataTableBundle\DataTable\Renderer\JsonRenderer')
+        $rendererMock = $this->getMockBuilder(JsonRenderer::class)
                              ->getMock();
 
         $rendererMock->expects($this->once())
