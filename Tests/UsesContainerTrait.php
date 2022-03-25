@@ -2,12 +2,9 @@
 
 namespace CrossKnowledge\DataTableDundle\Tests;
 
-use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
 use CrossKnowledge\DataTableBundle\DependencyInjection\Compiler\DatatablePass;
 use CrossKnowledge\DataTableBundle\DependencyInjection\CrossKnowledgeDataTableExtension;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 
 trait UsesContainerTrait
 {
