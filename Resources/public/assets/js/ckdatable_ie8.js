@@ -4670,7 +4670,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: 'initPerPage',
             value: function initPerPage() {
                 var $select = this.element.find('.datatable-length-container select');
-                if ($select.size() > 0 && $select.val() != "") {
+                if ($select.length > 0 && $select.val() != "") {
                     this.perPage = $select.val();
                 } else {
                     this.perPage = 10;
@@ -4773,7 +4773,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 var paginate = this.element.find('.dataTables_paginate');
                 if (paginate.length > 0) {
                     //Empty paging divs if only one page
-                    var pagingSize = paginate.find('.paginate_button:not(.next,.previous)').size();
+                    var pagingSize = paginate.find('.paginate_button:not(.next,.previous)').length;
                     if (pagingSize === 1) {
                         paginate[0].style.display = 'none';
                     } else {
