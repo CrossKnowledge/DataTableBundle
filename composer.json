@@ -20,7 +20,6 @@
   },
   "require": {
     "php": ">=5.5",
-    "twig/twig": "~2.0",
     "symfony/symfony": "^4.0",
     "symfony/form": "^3.0|^4.0"
   },

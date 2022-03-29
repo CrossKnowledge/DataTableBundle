@@ -31,6 +31,6 @@ class TwigRenderer implements RendererInterface
         {
             $data['filterForm'] = $table->getFilterForm()->createView();
         }
-        return $this->twig->loadTemplate($tableOptions['template'])->render($data);
+        return $this->twig->load($tableOptions['template'])->render($data);
     }
 }
