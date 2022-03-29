@@ -6,6 +6,7 @@ use CrossKnowledge\DataTableBundle\DataTable\Formatter\FormatterInterface;
 use CrossKnowledge\DataTableBundle\DataTable\Table\Layout\Bootstrap;
 use CrossKnowledge\DataTableBundle\DataTable\Table\Layout\DataTableLayoutInterface;
 use CrossKnowledge\DataTableBundle\Table\Element\Column;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
@@ -224,7 +225,7 @@ abstract class AbstractTable
         if (null===$this->filterForm) {
             $this->filterForm = $this->buildFilterForm(
                 $this->formFactory->createNamedBuilder($this->getTableId().'_filter')
-                    ->add('dofilter', 'button')
+                    ->add('dofilter', ButtonType::class)
             )->getForm();
         }
 
