@@ -29,6 +29,7 @@ services:
     class: CrossKnowledge\DataTableBundle\DataTable\Renderer\JsonRenderer
 
   crossknowledge_datatable.twig_renderer:
+    public: true
     class: CrossKnowledge\DataTableBundle\DataTable\Renderer\TwigRenderer
     arguments:
       - '@twig'
