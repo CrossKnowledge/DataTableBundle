@@ -108,12 +108,6 @@ gulp.task('sass', function () {
         .pipe(gulp.dest(moduleconfig.compiledRoot + '/css'))
 });
 
-/*gulp.task('build', function (callback) {
-    runSequence('clean');
-});*/
-
-
-
 gulp.task('watch', function () {
     gulp.watch(moduleconfig.styles, gulp.series('sass'));
     gulp.watch(moduleconfig.scripts, gulp.series('scripts'));
@@ -134,4 +128,3 @@ gulp.task('clean-tmp', function () {
 gulp.task('build', gulp.series('clean', 'clean-tmp', ['sass', 'scripts', 'standalone-libs'], 'clean-tmp'));
 
 gulp.task('default', gulp.series('build', 'watch'));
-
