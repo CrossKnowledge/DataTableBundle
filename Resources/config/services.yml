@@ -4,7 +4,7 @@ services:
 
     crossKnowledge.datatable.twig_extension:
         class: CrossKnowledge\DataTableBundle\Twig\DataTableExtension
-        arguments: [@crossknowledge_datatable.twig_renderer]
+        arguments: ['@crossknowledge_datatable.twig_renderer']
         tags:
           - { name: twig.extension }
 
@@ -17,10 +17,10 @@ services:
     crossknowledge_datatable.classic_table:
         abstract: true
         arguments:
-            - @form.factory
-            - @security.authorization_checker
-            - @router
-            - @crossknowledge_datatable.default_formatter
+            - '@form.factory'
+            - '@security.authorization_checker'
+            - '@router'
+            - '@crossknowledge_datatable.default_formatter'
 
     crossknowledge_datatable.default_renderer:
         alias: crossknowledge_datatable.twig_renderer
@@ -30,5 +30,5 @@ services:
 
     crossknowledge_datatable.twig_renderer:
         class: CrossKnowledge\DataTableBundle\DataTable\Renderer\TwigRenderer
-        arguments: [@twig]
+        arguments: ['@twig']
 

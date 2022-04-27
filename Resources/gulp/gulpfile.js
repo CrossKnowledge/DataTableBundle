@@ -5,7 +5,7 @@ var debug = require('gulp-debug');
 var plumber = require('gulp-plumber');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
-var sass = require('gulp-sass');
+var sass = require('gulp-sass')(require('sass'));
 
 var browserify = require('browserify');
 var babelify = require('babelify');
@@ -45,7 +45,7 @@ gulp.task('scripts-ie8', function () {
 
     var tmpFile = moduleconfig.tmp + '/main.js';
 
-    return browserify(tmpFile, {debug: true}).transform("babelify", {presets: ["es2015"]})
+    return browserify(tmpFile, {debug: true}).transform("babelify", {presets: ["@babel/env"]})
         .bundle().on('error', function (err) {
             gutil.log('Error in ' + tmpFile + ':');
             gutil.log(gutil.colors.red(err));
@@ -59,7 +59,7 @@ gulp.task('scripts-ie8', function () {
 gulp.task('scripts-other', function () {
     var sourceFile = moduleconfig.srcRoot + '/scripts/main.js';
 
-    return browserify(sourceFile, {debug: true}).transform("babelify", {presets: ["es2015"]})
+    return browserify(sourceFile, {debug: true}).transform("babelify", {presets: ["@babel/env"]})
         .bundle().on('error', function (err) {
             gutil.log('Error in ' + sourceFile + ':');
             gutil.log(gutil.colors.red(err));
@@ -73,8 +73,7 @@ gulp.task('scripts-other', function () {
 });
 
 
-gulp.task('scripts', ['scripts-ie8', 'scripts-other']);
-
+gulp.task('scripts', gulp.series('scripts-ie8', 'scripts-other'));
 
 gulp.task('standalone-libs', function() {
     var standaloneVendors = ['datatables'];
@@ -109,20 +108,9 @@ gulp.task('sass', function () {
         .pipe(gulp.dest(moduleconfig.compiledRoot + '/css'))
 });
 
-gulp.task('build', function (callback) {
-        runSequence(
-            'clean',
-            'clean-tmp',
-            ['sass', 'scripts', 'standalone-libs'],
-            'clean-tmp',
-            callback
-        );
-    }
-);
-
 gulp.task('watch', function () {
-    gulp.watch(moduleconfig.styles, ['sass']);
-    gulp.watch(moduleconfig.scripts, ['scripts']);
+    gulp.watch(moduleconfig.styles, gulp.series('sass'));
+    gulp.watch(moduleconfig.scripts, gulp.series('scripts'));
 });
 
 gulp.task('clean', function () {
@@ -137,4 +125,6 @@ gulp.task('clean-tmp', function () {
     });
 });
 
-gulp.task('default', ['build', 'watch']);
+gulp.task('build', gulp.series('clean', 'clean-tmp', ['sass', 'scripts', 'standalone-libs'], 'clean-tmp'));
+
+gulp.task('default', gulp.series('build', 'watch'));

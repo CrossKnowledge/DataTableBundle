@@ -2,7 +2,7 @@
 
     var datatables = require('./_ckdatatable');
 
-    $(document).ready(function() {
+    $(document).on('ready', function() {
         datatables.registerEvents();
     });
 
