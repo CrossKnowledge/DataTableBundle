@@ -7,7 +7,8 @@
     "datatables.net",
     "Datatables",
     "HTML Table",
-    "Symfony"
+    "Symfony",
+    "Symfony2"
   ],
   "authors": [
     {
@@ -20,12 +21,9 @@
   },
   "require": {
     "php": ">=5.5",
-    "twig/twig": "~2.0",
-    "symfony/symfony": "^4.0",
-    "symfony/form": "^3.0|^4.0"
+    "symfony/symfony": ">=2.6 <3.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^8",
-    "symfony/phpunit-bridge": "^6"
+    "phpunit/phpunit": "~3.7"
   }
 }

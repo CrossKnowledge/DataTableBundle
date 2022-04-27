@@ -4,10 +4,8 @@ namespace CrossKnowledge\DataTableBundle\Twig;
 
 use CrossKnowledge\DataTableBundle\DataTable\Renderer\TwigRenderer;
 use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
 
-class DataTableExtension extends AbstractExtension
+class DataTableExtension extends \Twig_Extension
 {
     /**
      * @var TwigRenderer
@@ -24,7 +22,7 @@ class DataTableExtension extends AbstractExtension
     public function getFunctions()
     {
         return array(
-            new TwigFunction('render_table', array($this, 'renderTable'), array(
+            new \Twig_SimpleFunction('render_table', array($this, 'renderTable'), array(
                 'is_safe' => array('html'),
             )),
         );

@@ -3,9 +3,8 @@ namespace CrossKnowledge\DataTableDundle\Tests\DataTable;
 
 use CrossKnowledge\DataTableBundle\DataTable\ColumnBuilder;
 use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\Column;
-use PHPUnit\Framework\TestCase;
 
-class ColumnBuilderTest extends TestCase
+class ColumnBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testBuilder()
     {

@@ -1,15 +1,15 @@
 <?php
-
 namespace CrossKnowledge\DataTableDundle\Tests\DependencyInjection;
 
+use CrossKnowledge\DataTableBundle\DependencyInjection\Compiler\DatatablePass;
+use CrossKnowledge\DataTableBundle\DependencyInjection\CrossKnowledgeDataTableExtension;
 use CrossKnowledge\DataTableDundle\Tests\UsesContainerTrait;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use PHPUnit\Framework\TestCase;
-
 require_once __DIR__.'/../UsesContainerTrait.php';
 
-class DependencyInjectionTest extends TestCase
+class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
 {
     use UsesContainerTrait;
 

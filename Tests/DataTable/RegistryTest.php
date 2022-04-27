@@ -1,13 +1,13 @@
 <?php
 
+
 namespace CrossKnowledge\DataTableDundle\Tests\DataTable;
 
-use BadMethodCallException;
+
 use CrossKnowledge\DataTableBundle\DataTable\DataTableRegistry;
 use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
-use PHPUnit\Framework\TestCase;
 
-class RegistryTest extends TestCase
+class RegistryTest extends \PHPUnit_Framework_TestCase
 {
     public function testRetrieveTableById()
     {
@@ -18,7 +18,7 @@ class RegistryTest extends TestCase
         $registry = new DataTableRegistry(['test' => $table]);
         $this->assertEquals($table, $registry->retrieveByTableId('test'));
 
-        $this->expectException(BadMethodCallException::class);
+        $this->setExpectedException('\BadMethodCallException');
         $registry->retrieveByTableId('undef');
     }
 }
