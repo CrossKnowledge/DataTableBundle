@@ -1,34 +1,34 @@
+
+
 services:
-  crossKnowledge.datatable.twig_extension:
-    class: CrossKnowledge\DataTableBundle\Twig\DataTableExtension
-    arguments:
-      - '@crossknowledge_datatable.twig_renderer'
-    tags:
-      - { name: twig.extension }
 
-  crossknowledge_datatable.registry:
-    public: true
-    class: CrossKnowledge\DataTableBundle\DataTable\DataTableRegistry
+    crossKnowledge.datatable.twig_extension:
+        class: CrossKnowledge\DataTableBundle\Twig\DataTableExtension
+        arguments: [@crossknowledge_datatable.twig_renderer]
+        tags:
+          - { name: twig.extension }
 
-  crossknowledge_datatable.default_formatter:
-    class: CrossKnowledge\DataTableBundle\DataTable\Formatter\DefaultFormatter
+    crossknowledge_datatable.registry:
+        class: CrossKnowledge\DataTableBundle\DataTable\DataTableRegistry
 
-  crossknowledge_datatable.classic_table:
-    abstract: true
-    arguments:
-      - '@form.factory'
-      - '@security.authorization_checker'
-      - '@router'
-      - '@crossknowledge_datatable.default_formatter'
+    crossknowledge_datatable.default_formatter:
+        class: CrossKnowledge\DataTableBundle\DataTable\Formatter\DefaultFormatter
 
-  crossknowledge_datatable.default_renderer:
-    alias: crossknowledge_datatable.twig_renderer
+    crossknowledge_datatable.classic_table:
+        abstract: true
+        arguments:
+            - @form.factory
+            - @security.authorization_checker
+            - @router
+            - @crossknowledge_datatable.default_formatter
 
-  crossknowledge_datatable.json_renderer:
-    public: true
-    class: CrossKnowledge\DataTableBundle\DataTable\Renderer\JsonRenderer
+    crossknowledge_datatable.default_renderer:
+        alias: crossknowledge_datatable.twig_renderer
 
-  crossknowledge_datatable.twig_renderer:
-    class: CrossKnowledge\DataTableBundle\DataTable\Renderer\TwigRenderer
-    arguments:
-      - '@twig'
+    crossknowledge_datatable.json_renderer:
+        class: CrossKnowledge\DataTableBundle\DataTable\Renderer\JsonRenderer
+
+    crossknowledge_datatable.twig_renderer:
+        class: CrossKnowledge\DataTableBundle\DataTable\Renderer\TwigRenderer
+        arguments: [@twig]
+

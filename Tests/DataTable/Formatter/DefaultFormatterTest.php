@@ -5,9 +5,8 @@ namespace CrossKnowledge\DataTableDundle\Tests\DataTable\Formatter;
 
 use CrossKnowledge\DataTableBundle\DataTable\Formatter\DefaultFormatter;
 use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\Column;
-use PHPUnit\Framework\TestCase;
 
-class DefaultFormatterTest extends TestCase
+class DefaultFormatterTest extends \PHPUnit_Framework_TestCase
 {
     public function testFormatRowAutoEscapeOption()
     {
