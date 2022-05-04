@@ -1,14 +1,13 @@
 {
   "name": "crossknowledge/datatable-bundle",
-  "description": "Server side implementation of datatables.net library for Symfony2",
+  "description": "Server side implementation of datatables.net library for Symfony",
   "type": "symfony-bundle",
   "license": "MIT",
   "keywords": [
     "datatables.net",
     "Datatables",
     "HTML Table",
-    "Symfony",
-    "Symfony2"
+    "Symfony"
   ],
   "authors": [
     {
@@ -20,9 +19,12 @@
   },
   "require": {
     "php": ">=5.5",
-    "symfony/symfony": "^3.4"
+    "twig/twig": "~2.0",
+    "symfony/symfony": "^4.0",
+    "symfony/form": "^3.0|^4.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^4.8"
+    "phpunit/phpunit": "^8",
+    "symfony/phpunit-bridge": "^6"
   }
 }

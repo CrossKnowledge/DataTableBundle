@@ -1,15 +1,20 @@
 <?php
+
 namespace CrossKnowledge\DataTableDundle\Tests\DataTable\Column;
 
-
 use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\Column;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
 
-class ColumnTest extends \PHPUnit_Framework_TestCase
+class ColumnTest extends TestCase
 {
+    /**
+     * Test if instantiate a column with an undefined option throws an exception.
+     */
     public function testUndefinedOptionThrowsException()
     {
-        $this->setExpectedException('Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException');
-        $column = new Column("test", ['not_defined' => true]);
+        $this->expectException(UndefinedOptionsException::class);
+        (new Column("test", ['not_defined' => true]));
     }
 
     public function testFormatCellUsesCallback()

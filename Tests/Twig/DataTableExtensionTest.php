@@ -1,15 +1,16 @@
 <?php
 
-namespace CrossKnowledge\DataTableDundle\Tests\Controller;
+namespace CrossKnowledge\DataTableDundle\Tests\Twig;
 
 use CrossKnowledge\DataTableBundle\Twig\DataTableExtension;
 use CrossKnowledge\DataTableDundle\Tests\UsesContainerTrait;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use PHPUnit\Framework\TestCase;
 
 require_once __DIR__.'/../UsesContainerTrait.php';
 
-class DataTableExtensionTest extends \PHPUnit_Framework_TestCase
+class DataTableExtensionTest extends TestCase
 {
     use UsesContainerTrait;
 
