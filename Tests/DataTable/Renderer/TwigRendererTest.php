@@ -1,13 +1,15 @@
 <?php
 
-
 namespace CrossKnowledge\DataTableDundle\Tests\DataTable\Renderer;
 
-
 use CrossKnowledge\DataTableBundle\DataTable\Renderer\TwigRenderer;
+use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
 use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\Column;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\Form;
+use Twig\Environment;
 
-class TwigRendererTest extends \PHPUnit_Framework_TestCase
+class TwigRendererTest extends TestCase
 {
     public function testRenderWithFilters()
     {
@@ -18,15 +20,15 @@ class TwigRendererTest extends \PHPUnit_Framework_TestCase
 
         $mock->expects($this->once())
             ->method('getFilterForm')
-            ->will($this->returnValue($this->getMockBuilder('Symfony\Component\Form\Form')
+            ->will($this->returnValue($this->getMockBuilder(Form::class)
                 ->disableOriginalConstructor()
                 ->getMock()));
 
-        $twig = $this->getMockBuilder('\Twig_Environment')
+        $twig = $this->getMockBuilder(Environment::class)
                     ->disableOriginalConstructor()
                     ->getMock();
 
-        $templateMock = $this->getMockBuilder(\Twig_TemplateInterface::class)
+        $templateMock = $this->getMockBuilder(Environment::class)
                              ->disableOriginalConstructor()
                              ->getMock();
 
@@ -47,11 +49,11 @@ class TwigRendererTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->never())
             ->method('getFilterForm');
 
-        $twig = $this->getMockBuilder('\Twig_Environment')
+        $twig = $this->getMockBuilder(Environment::class)
                     ->disableOriginalConstructor()
                     ->getMock();
 
-        $templateMock = $this->getMockBuilder(\Twig_TemplateInterface::class)
+        $templateMock = $this->getMockBuilder(Environment::class)
                              ->disableOriginalConstructor()
                              ->getMock();
 
@@ -64,7 +66,7 @@ class TwigRendererTest extends \PHPUnit_Framework_TestCase
 
     public function getTableMock(array $options)
     {
-        $mock = $this->getMockBuilder('CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable')
+        $mock = $this->getMockBuilder(AbstractTable::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -75,8 +77,6 @@ class TwigRendererTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->once())
             ->method('getOptions')
             ->will($this->returnValue($options));
-
-
 
         return $mock;
     }

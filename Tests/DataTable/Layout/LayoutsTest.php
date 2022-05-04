@@ -1,11 +1,13 @@
 <?php
+
 namespace CrossKnowledge\DataTableDundle\Tests\DataTable\Layout;
 
 use CrossKnowledge\DataTableBundle\DataTable\Table\Layout\Bootstrap;
 use CrossKnowledge\DataTableBundle\DataTable\Table\Layout\CustomLayout;
 use CrossKnowledge\DataTableBundle\DataTable\Table\Layout\DataTableLayoutInterface;
+use PHPUnit\Framework\TestCase;
 
-class ColumnBuilderTest extends \PHPUnit_Framework_TestCase
+class ColumnBuilderTest extends TestCase
 {
     /**
      * @dataProvider layoutsProvider

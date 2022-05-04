@@ -1,12 +1,11 @@
 <?php
 
-
 namespace CrossKnowledge\DataTableDundle\Tests\DataTable\Column;
 
-
 use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\DateTimeColumn;
+use PHPUnit\Framework\TestCase;
 
-class DateTimeColumnTest extends \PHPUnit_Framework_TestCase
+class DateTimeColumnTest extends TestCase
 {
     /**
      * @dataProvider dateFormatProvider

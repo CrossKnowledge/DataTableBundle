@@ -1,37 +1,52 @@
 <?php
-namespace CrossKnowledge\DataTableDundle\Tests\DependencyInjection;
 
-use CrossKnowledge\DataTableBundle\DependencyInjection\Compiler\DatatablePass;
-use CrossKnowledge\DataTableBundle\DependencyInjection\CrossKnowledgeDataTableExtension;
+namespace CrossKnowledge\DataTableDundle\Tests\Controller;
+
+use CrossKnowledge\DataTableBundle\DataTable\Renderer\TwigRenderer;
+use CrossKnowledge\DataTableBundle\Twig\DataTableExtension;
 use CrossKnowledge\DataTableDundle\Tests\UsesContainerTrait;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
+use PHPUnit\Framework\TestCase;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+
 require_once __DIR__.'/../UsesContainerTrait.php';
 
-class DependencyInjectionTest extends \PHPUnit_Framework_TestCase
+class DataTableExtensionTest extends TestCase
 {
     use UsesContainerTrait;
 
-    public function testRegistryHydratedByCompilerPass()
+    /**
+     * Return function of extension by name.
+     *
+     * @param AbstractExtension $extension
+     * @param string            $name
+     *
+     * @return TwigFunction|void
+     */
+    protected function getFunctionByName(AbstractExtension $extension, $name)
     {
-        $mock = $this->getMockBuilder('CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+        foreach ($extension->getFunctions() as $function) {
+            if ($function->getName() == $name) {
+                return $function;
+            }
+        }
+    }
 
-        $definition = new Definition(get_class($mock));
-        $definition->addTag('crossknowledge.datatable', ['table_id' => 'testtagged_service_table']);
+    /**
+     * Test to render table calls using the Twig Renderer.
+     */
+    public function testRenderTableCallsTwigRenderer()
+    {
+        $tableMock = $this->getDataTableMock();
+        $rendererMock = $this->getMockBuilder(TwigRenderer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $container = new ContainerBuilder();
-        $container->set('testtagged_service', $mock);
-        $container->setDefinition('testtagged_service', $definition);
-        $container = $this->compileContainer($container);
+        $twigExtension = new DataTableExtension($rendererMock);
+        $function = $this->getFunctionByName($twigExtension, 'render_table');
+        $this->assertNotNull($function, 'Function "render_table" is not registered in twig_extension');
 
-        $registry = $container->get('crossknowledge_datatable.registry');
-
-        $this->assertInstanceOf(
-            'CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable',
-            $registry->retrieveByTableId('testtagged_service_table')
-        );
+        $rendererMock->expects($this->once())->method('render');
+        call_user_func_array($function->getCallable(), [$tableMock]);
     }
 }
