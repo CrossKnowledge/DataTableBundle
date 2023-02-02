@@ -48,7 +48,7 @@
 
         initPerPage() {
             var $select = this.element.find('.datatable-length-container select');
-            if ($select.size() > 0 && $select.val()!="") {
+            if ($select.length > 0 && $select.val()!="") {
                 this.perPage = $select.val();
             } else {
                 this.perPage = 10;
@@ -137,7 +137,7 @@
             let paginate = this.element.find('.dataTables_paginate');
             if (paginate.length > 0) {
                 //Empty paging divs if only one page
-                let pagingSize = paginate.find('.paginate_button:not(.next,.previous)').size();
+                let pagingSize = paginate.find('.paginate_button:not(.next,.previous)').length;
                 if (pagingSize === 1) {
                     paginate[0].style.display = 'none';
                 } else {
