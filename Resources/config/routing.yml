@@ -2,4 +2,4 @@
 crossknowledge_datatable_handleajax_json:
     path: /filter/{tableid}
     defaults:
-        _controller: CrossKnowledgeDataTableBundle:DataTable:json
+        _controller: CrossKnowledge\DataTableBundle\Controller\DataTableController::jsonAction
