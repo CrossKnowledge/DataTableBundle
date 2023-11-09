@@ -33,3 +33,9 @@ services:
     class: CrossKnowledge\DataTableBundle\DataTable\Renderer\TwigRenderer
     arguments:
       - '@twig'
+
+  CrossKnowledge\DataTableBundle\Controller\DataTableController:
+    public: true
+    calls:
+      - [setRegistry, ['@crossknowledge_datatable.registry']]
+      - [setJsonRenderer, ['@crossknowledge_datatable.json_renderer']]
