@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class DataTableController
+class DataTableController extends AbstractController
 {
     /** @var DataTableRegistry */
     private $registry;
