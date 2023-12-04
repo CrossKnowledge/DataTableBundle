@@ -6,6 +6,9 @@ services:
     tags:
       - { name: twig.extension }
 
+  CrossKnowledge\DataTableBundle\DataTable\DataTableRegistry:
+    alias: crossknowledge_datatable.registry
+
   crossknowledge_datatable.registry:
     public: true
     class: CrossKnowledge\DataTableBundle\DataTable\DataTableRegistry
