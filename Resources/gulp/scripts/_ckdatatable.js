@@ -31,7 +31,9 @@
                 this.initTable();
             }
             else{
-                this.table.ajax.reload();
+                this.table.ajax.reload(() => {
+                    this.element.trigger('finishRefresh');
+                });
             }
             return false;
         }
