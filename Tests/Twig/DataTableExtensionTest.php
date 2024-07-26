@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-require_once __DIR__.'/../UsesContainerTrait.php';
+require_once __DIR__ . '/../UsesContainerTrait.php';
 
 class DataTableExtensionTest extends TestCase
 {
@@ -21,7 +21,7 @@ class DataTableExtensionTest extends TestCase
      * Return function of extension by name.
      *
      * @param AbstractExtension $extension
-     * @param string            $name
+     * @param string $name
      *
      * @return TwigFunction|void
      */

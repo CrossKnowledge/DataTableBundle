@@ -1,4 +1,5 @@
 <?php
+
 namespace CrossKnowledge\DataTableDundle\Tests\DataTable\Layout;
 
 use CrossKnowledge\DataTableBundle\DataTable\Table\Layout\Bootstrap;
@@ -17,7 +18,7 @@ class ColumnBuilderTest extends TestCase
         $this->assertNotEmpty($layoutObject->getDomDefinition());
     }
 
-    public function layoutsProvider()
+    public function layoutsProvider(): array
     {
         return [
             ['boostrap-datatable-layout', new Bootstrap()],

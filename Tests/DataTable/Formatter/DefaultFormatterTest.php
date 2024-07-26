@@ -2,7 +2,6 @@
 
 namespace CrossKnowledge\DataTableDundle\Tests\DataTable\Formatter;
 
-
 use CrossKnowledge\DataTableBundle\DataTable\Formatter\DefaultFormatter;
 use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\Column;
 use PHPUnit\Framework\TestCase;
@@ -17,16 +16,18 @@ class DefaultFormatterTest extends TestCase
 
         $tableMock->expects($this->once())
             ->method('getColumns')
-            ->will($this->returnValue([
-                'escapedcolumn' => new Column("escaped", ['auto_escape' => true]),
-                'unescapedcolumn' => new Column("not escaped", ['auto_escape' => false])
-            ]));
+            ->will(
+                $this->returnValue([
+                    'escapedcolumn' => new Column("escaped", ['auto_escape' => true]),
+                    'unescapedcolumn' => new Column("not escaped", ['auto_escape' => false]),
+                ])
+            );
 
         $formatter = new DefaultFormatter();
 
         $row = [
-          'escapedcolumn' => '<testval',
-          'unescapedcolumn' => '<testval',
+            'escapedcolumn' => '<testval',
+            'unescapedcolumn' => '<testval',
         ];
 
         $expected = [

@@ -20,8 +20,8 @@ class ColumnTest extends TestCase
     public function testFormatCellUsesCallback()
     {
         $column = new Column("test");
-        $column->setFormatValueCallback(function($val, $row){
-            return $val.'ok';
+        $column->setFormatValueCallback(function ($val, $row) {
+            return $val . 'ok';
         });
 
         $this->assertEquals('testok', $column->formatCell('test', [], 'view'));
@@ -33,10 +33,10 @@ class ColumnTest extends TestCase
     public function testBasicGetterSetter()
     {
         $column = (new Column("test", ['auto_escape' => false]))
-                   ->setFormatValueCallback(function() {
-                        return 'test ok';
-                    })
-                   ->setIdentifier('test');
+            ->setFormatValueCallback(function () {
+                return 'test ok';
+            })
+            ->setIdentifier('test');
 
         $this->assertEquals("test", $column->getOptions()['title']);
         $this->assertEquals("test ok", call_user_func($column->getFormatValueCallback()));
@@ -45,6 +45,9 @@ class ColumnTest extends TestCase
         $column->setOptions(['defaultContent' => 'test']);
         $this->assertArrayHasKey('defaultContent', $column->getOptions());
 
-        $this->assertTrue($column->getOptions()['auto_escape'], 'Default autoescape value must be resetted  by setOptions');
+        $this->assertTrue(
+            $column->getOptions()['auto_escape'],
+            'Default autoescape value must be resetted  by setOptions'
+        );
     }
 }

@@ -4,11 +4,13 @@ namespace CrossKnowledge\DataTableBundle\DataTable\Renderer;
 
 use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class TwigRenderer implements RendererInterface
 {
-    /** @var Environment */
-    protected $twig;
+    protected Environment $env;
 
     /**
      * TwigRenderer constructor
@@ -17,10 +19,15 @@ class TwigRenderer implements RendererInterface
      */
     public function __construct(Environment $env)
     {
-        $this->twig = $env;
+        $this->env = $env;
     }
 
-    public function render(AbstractTable $table)
+    /**
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
+    public function render(AbstractTable $table): string
     {
         $tableOptions = $table->getOptions();
         $data = [
@@ -31,6 +38,6 @@ class TwigRenderer implements RendererInterface
         {
             $data['filterForm'] = $table->getFilterForm()->createView();
         }
-        return $this->twig->load($tableOptions['template'])->render($data);
+        return $this->env->load($tableOptions['template'])->render($data);
     }
 }

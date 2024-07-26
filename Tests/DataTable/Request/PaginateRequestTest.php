@@ -1,4 +1,5 @@
 <?php
+
 namespace CrossKnowledge\DataTableDundle\Tests\DataTable\Request;
 
 use CrossKnowledge\DataTableBundle\DataTable\Request\PaginateRequest;
@@ -14,9 +15,9 @@ class PaginateRequestTest extends TestCase
     {
         $tableMock = $this->getTableMock();
         $request = new Request([], [
-           'order' => [['column' => '1', 'dir' => 'desc']],
-           'start'  => 242,
-           'length' => 342
+            'order' => [['column' => '1', 'dir' => 'desc']],
+            'start' => 242,
+            'length' => 342,
         ]);
 
         $paginateRequest = PaginateRequest::fromHttpRequest($request, $tableMock);
@@ -46,7 +47,6 @@ class PaginateRequestTest extends TestCase
                     ]
                 )
             );
-
 
         $tableMock->expects($this->any())
             ->method('getFilterForm')

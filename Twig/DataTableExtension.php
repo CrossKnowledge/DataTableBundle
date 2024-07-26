@@ -9,33 +9,31 @@ use Twig\TwigFunction;
 
 class DataTableExtension extends AbstractExtension
 {
-    /**
-     * @var TwigRenderer
-     */
-    protected $renderer;
+    protected TwigRenderer $renderer;
 
     public function __construct(TwigRenderer $renderer)
     {
         $this->renderer = $renderer;
     }
+
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
-        return array(
-            new TwigFunction('render_table', array($this, 'renderTable'), array(
-                'is_safe' => array('html'),
-            )),
-        );
+        return [
+            new TwigFunction('render_table', [$this, 'renderTable'], [
+                'is_safe' => ['html'],
+            ]),
+        ];
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'crossKnowledge.datatable.twig_extension';
     }
 
-    public function renderTable(AbstractTable $table)
+    public function renderTable(AbstractTable $table): string
     {
         return $this->renderer->render($table);
     }

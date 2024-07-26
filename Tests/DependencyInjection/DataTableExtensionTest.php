@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__.'/../UsesContainerTrait.php';
+require_once __DIR__ . '/../UsesContainerTrait.php';
 
 class DependencyInjectionTest extends TestCase
 {
@@ -16,8 +16,8 @@ class DependencyInjectionTest extends TestCase
     public function testRegistryHydratedByCompilerPass()
     {
         $mock = $this->getMockBuilder('CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $definition = new Definition(get_class($mock));
         $definition->addTag('crossknowledge.datatable', ['table_id' => 'testtagged_service_table']);

@@ -1,10 +1,9 @@
 <?php
 
-
 namespace CrossKnowledge\DataTableBundle\DataTable\Formatter;
 
-
 use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
+use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\Column;
 
 class DefaultFormatter implements FormatterInterface
 {
@@ -13,16 +12,15 @@ class DefaultFormatter implements FormatterInterface
      *
      * @param $row
      * @param AbstractTable $table
-     *
-     * @return mixed
+     * @param $context
+     * @return array
      */
-    public function formatRow($row, AbstractTable $table, $context)
+    public function formatRow($row, AbstractTable $table, $context): array
     {
         $cols = $table->getColumns($context);
         $newRow = [];
 
-        foreach ($cols as $colIdentifier=>$column) {
-
+        foreach ($cols as $colIdentifier => $column) {
             $rawValue = array_key_exists($colIdentifier, $row) ? $row[$colIdentifier] : "";
 
             if ($column->getOptions()['auto_escape']) {
