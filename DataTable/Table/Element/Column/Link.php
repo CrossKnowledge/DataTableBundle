@@ -17,18 +17,28 @@ class Link extends Column
         $resolver->setDefault('UrlField', function (Options $options) {
             return $options['LinkTextField'];
         });
-        $resolver->setDefault('UrlCallback', function($value, $row) {
+        $resolver->setDefault('UrlCallback', function ($value, $row) {
             return $row[$this->options['UrlField']];
         });
         $resolver->setAllowedTypes('UrlCallback', ['\Closure']);
     }
+
     /**
      * Build a link
      */
-    public function formatCell($value, array $rowData, $context)
+    public function formatCell($value, array $rowData, $context): string
     {
         $value = parent::formatCell($value, $rowData, $context);
         $url = call_user_func_array($this->options['UrlCallback'], [$value, $rowData]);
-        return '<a href="'.$url.'" alt="'.htmlentities($rowData[$this->options['LinkTextField']], ENT_COMPAT | ENT_HTML401, 'UTF-8').'">'.htmlentities($rowData[$this->options['LinkTextField']], ENT_COMPAT | ENT_HTML401, 'UTF-8').'</a>';
+
+        return '<a href="' . $url . '" alt="' . htmlentities(
+                $rowData[$this->options['LinkTextField']],
+                ENT_COMPAT | ENT_HTML401,
+                'UTF-8'
+            ) . '">' . htmlentities(
+                $rowData[$this->options['LinkTextField']],
+                ENT_COMPAT | ENT_HTML401,
+                'UTF-8'
+            ) . '</a>';
     }
 }

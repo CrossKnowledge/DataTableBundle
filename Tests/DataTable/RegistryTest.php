@@ -12,8 +12,8 @@ class RegistryTest extends TestCase
     public function testRetrieveTableById()
     {
         $table = $this->getMockBuilder(AbstractTable::class)
-                      ->disableOriginalConstructor()
-                      ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $registry = new DataTableRegistry(['test' => $table]);
         $this->assertEquals($table, $registry->retrieveByTableId('test'));

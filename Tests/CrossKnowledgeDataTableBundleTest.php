@@ -18,7 +18,7 @@ class CrossKnowledgeDataTableBundleTest extends TestCase
         (new CrossKnowledgeDataTableBundle())->build($container);
         $compilerPasses = $container->getCompilerPassConfig()->getBeforeOptimizationPasses();
 
-        $this->assertNotEmpty(array_filter($compilerPasses, function($compilerPass) {
+        $this->assertNotEmpty(array_filter($compilerPasses, function ($compilerPass) {
             return $compilerPass instanceof DatatablePass;
         }));
     }

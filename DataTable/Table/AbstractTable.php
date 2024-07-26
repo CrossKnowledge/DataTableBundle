@@ -1,12 +1,13 @@
 <?php
+
 namespace CrossKnowledge\DataTableBundle\DataTable\Table;
 
 use CrossKnowledge\DataTableBundle\DataTable\ColumnBuilder;
 use CrossKnowledge\DataTableBundle\DataTable\Formatter\FormatterInterface;
+use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\Column;
 use CrossKnowledge\DataTableBundle\DataTable\Table\Layout\Bootstrap;
 use CrossKnowledge\DataTableBundle\DataTable\Table\Layout\DataTableLayoutInterface;
-use CrossKnowledge\DataTableBundle\Table\Element\Column;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,52 +19,27 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 abstract class AbstractTable
 {
-    const VIEW_CONTEXT   = 'view';
-    
-    /**
-     * @var Router
-     */
-    protected $router;
-    /**
-     * @var PaginateRequest
-     */
-    protected $currentRequest;
-    /**
-     * @var FormFactory
-     */
-    protected $formFactory;
-    /**
-     * @var Form
-     */
-    protected $filterForm;
-    /**
-     * @var AuthorizationChecker
-     */
-    protected $authorizationChecker;
+    const VIEW_CONTEXT = 'view';
 
-    /**
-     * @var Column[]
-     */
-    protected $columns = array();
-    protected $columnsInitialized = array();
+    protected Router $router;
+    protected PaginateRequest $currentRequest;
+    protected FormFactory $formFactory;
+    protected Form $filterForm;
+    protected AuthorizationChecker $authorizationChecker;
+    protected array $columns = [];
+    protected array $columnsInitialized = [];
+    protected OptionsResolver $optionsResolver;
+    protected array $options = [];
+    protected DataTableLayoutInterface $layout;
+    private string $tableId;
+    private FormatterInterface $formatter;
 
-    /**
-     * @var OptionsResolver
-     */
-    protected $optionsResolver;
-
-    /**
-     * @var array Key value array of options
-     */
-    protected $options = [];
-
-    /**
-     * @var DataTableLayoutInterface
-     */
-    protected $layout;
     /**
      * @param FormFactory $formFactory
+     * @param AuthorizationCheckerInterface $checker
      * @param Router $router
+     * @param FormatterInterface $formatter
+     * @param DataTableLayoutInterface|null $layout
      */
     public function __construct(
         FormFactory $formFactory,
@@ -78,25 +54,27 @@ abstract class AbstractTable
         $this->authorizationChecker = $checker;
         $this->layout = null === $layout ? new Bootstrap() : $layout;
         $this->optionsResolver = new OptionsResolver();
-        //$this->initColumnsDefinitions();
+        $this->initColumnsDefinitions();
         $this->setDefaultOptions($this->optionsResolver);
         $this->configureOptions($this->optionsResolver);
         $this->options = $this->optionsResolver->resolve();
     }
+
     /**
      *
      * Example implementation
-
-    public function buildColumns(ColumnBuilder $builder)
-    {
-        $builder->add('Learner.FirstName', new Column('First name title', ['width' => '20%']))
-                ->add('Learner.Name', new Column('Last name'));
-    }
+     *
+     * public function buildColumns(ColumnBuilder $builder)
+     * {
+     * $builder->add('Learner.FirstName', new Column('First name title', ['width' => '20%']))
+     * ->add('Learner.Name', new Column('Last name'));
+     * }
      *
      * @return array key must be the column field name,
      *               value must be an array of options for https://datatables.net/reference/option/columns
      */
-    abstract public function buildColumns(ColumnBuilder $builder, $context = self::VIEW_CONTEXT);
+    abstract public function buildColumns(ColumnBuilder $builder, $context = self::VIEW_CONTEXT): array;
+
     /**
      * Must return a \Traversable a traversable element that must contain for each element an ArrayAccess such as
      *      key(colname) => value(db value)
@@ -104,19 +82,13 @@ abstract class AbstractTable
      * The filter should be used there.
      *
      * Example of the expected return
-    return [
-        'first_name' => 'John',
-        'last_name' => 'Doe'
-    ];
+     * return [
+     * 'first_name' => 'John',
+     * 'last_name' => 'Doe'
+     * ];
      * Example:
-    return new \PropelCollection();
-     *    
-     * @param string $context
-     * @return \Traversable
-     */
-    abstract public function getDataIterator($context = self::VIEW_CONTEXT);
-    /**
-     * @return int the total number of rows regardless of filters
+     * return new \PropelCollection();
+     *
      */
     abstract public function getUnfilteredCount();
     /**
@@ -133,104 +105,92 @@ abstract class AbstractTable
             'no_init_loading' => false,
             'template' => 'CrossKnowledgeDataTableBundle::default_table.html.twig',
             'data_table_custom_options' => [],
-            'has_filter_form' => function() {
-                return $this->getFilterForm()->count()>1;
-            }
+            'has_filter_form' => function () {
+                return $this->getFilterForm()->count() > 1;
+            },
         ]);
     }
+
     /**
      * Configure the table options
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver){}
-    /**
-     * @return array
-     */
-    public function setOptions(array $options)
+    public function configureOptions(OptionsResolver $resolver)
+    {
+    }
+
+    public function setOptions(array $options): array
     {
         $this->options = $this->optionsResolver->resolve(array_merge($this->options, $options));
     }
-    /**
-     * @return array
-     */
-    public function getOptions()
+
+    public function getOptions(): array
     {
         return $this->options;
     }
+
     /**
      * Build the filter form
-     *
      * @param FormBuilder $builder
-     *
      * @return FormBuilder
      */
-    public function buildFilterForm(FormBuilder $builder)
+    public function buildFilterForm(FormBuilder $builder): FormBuilder
     {
         return $builder;
     }
-    /**
-     * @return string
-     */
-    public function getAjaxAdditionalParameters()
+
+    public function getAjaxAdditionalParameters(): array
     {
         return [];
     }
-    /**
-     * @return string[] should return the content to insert in the rows key(colname) => value(string / html / any)
-     */
-    public function getOutputRows($context = self::VIEW_CONTEXT)
+
+    public function getOutputRows($context = self::VIEW_CONTEXT): array
     {
         $t = [];
         foreach ($this->getDataIterator($context) as $item) {
-            $formatted = $this->formatter->formatRow($item,  $this, $context);
+            $formatted = $this->formatter->formatRow($item, $this, $context);
             $t[] = $formatted;
         }
 
         return $t;
     }
-    
+
     /**
      * @see getColumns() same as getColumns but filtered for datatable JS API
      */
-    public function getClientSideColumns($context = self::VIEW_CONTEXT)
+    public function getClientSideColumns($context = self::VIEW_CONTEXT): array
     {
         $columns = $this->getColumns($context);
         $clientSideCols = [];
-        foreach ($columns as $colid=>$column) {
+        foreach ($columns as $colid => $column) {
             $clientSideCols[$colid] = $column->getClientSideDefinition();
         }
 
         return $clientSideCols;
     }
+
     /**
      * @param Request $request
      */
-    public function handleRequest(Request $request)
+    public function handleRequest(Request $request): void
     {
         $this->currentRequest = PaginateRequest::fromHttpRequest($request, $this);
     }
-    /**
-     * @return PaginateRequest
-     */
-    public function getCurrentRequest()
+
+    public function getCurrentRequest(): PaginateRequest
     {
         return $this->currentRequest;
     }
-    /**
-     * @return Form|\Symfony\Component\Form\Form
-     */
-    public function getFilterForm()
-    {
-        if (null===$this->filterForm) {
-            $this->filterForm = $this->buildFilterForm(
-                $this->formFactory->createNamedBuilder($this->getTableId().'_filter')
-                    ->add('dofilter', ButtonType::class)
-            )->getForm();
-        }
 
+    /**
+     * @return Form
+     */
+    public function getFilterForm(): Form
+    {
         return $this->filterForm;
     }
+
     /**
      * Sets the formatter
      *
@@ -242,41 +202,48 @@ abstract class AbstractTable
     {
         $this->formatter = $formatter;
     }
+
     /**
      * @return string a table idenfitier that will be used for ajax requests
      */
-    public final function getTableId()
+    public final function getTableId(): string
     {
         return $this->tableId;
     }
+
     /**
-     * @return \CrossKnowledge\DataTableBundle\Table\Element\Column[]
+     * @param string $context
+     * @return Column[]
      */
-    public function getColumns($context = self::VIEW_CONTEXT)
+    public function getColumns(string $context = self::VIEW_CONTEXT): array
     {
-        if(!array_key_exists($context, $this->columns)) {
+        if (!array_key_exists($context, $this->columns)) {
             $this->initColumnsDefinitions($context);
         }
+
         return $this->columns[$context];
     }
+
     /**
      * Builds the columns definition
      */
-    protected function initColumnsDefinitions($context = self::VIEW_CONTEXT)
+    protected function initColumnsDefinitions($context = self::VIEW_CONTEXT): void
     {
         $builder = new ColumnBuilder();
 
         $this->buildColumns($builder, $context);
 
         $this->columns[$context] = $builder->getColumns();
-        $this->columnsInitialized[$context] =  true;
+        $this->columnsInitialized[$context] = true;
     }
+
     /**
      * Sets the table identifier
      *
-     * @return null
+     * @param $id
+     * @return void
      */
-    public final function setTableId($id)
+    public final function setTableId($id): void
     {
         $this->tableId = $id;
     }

@@ -1,4 +1,5 @@
 <?php
+
 namespace CrossKnowledge\DataTableBundle\DataTable\Renderer;
 
 use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;

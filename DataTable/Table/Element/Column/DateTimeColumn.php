@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,7 +16,7 @@ class DateTimeColumn extends Column
         $resolver->setRequired('output_format');
     }
 
-    public function formatCell($value, array $row, $context)
+    public function formatCell($value, array $row, $context): string
     {
         if (empty($value)) {
             return '';

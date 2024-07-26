@@ -12,15 +12,13 @@ use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\ColumnInterfac
  */
 class ColumnBuilder
 {
-    protected $columns;
+    protected array $columns;
 
     /**
      * @param string $colidentifier
      * @param ColumnInterface $definition
-     *
-     * @return ColumnBuilder
      */
-    public function add($colidentifier, ColumnInterface $definition)
+    public function add(string $colidentifier, ColumnInterface $definition): ColumnBuilder
     {
         $definition->setIdentifier($colidentifier);
         $this->columns[$colidentifier] = $definition;
@@ -28,10 +26,7 @@ class ColumnBuilder
         return $this;
     }
 
-    /**
-     * @return ColumnInterface[]
-     */
-    public function getColumns()
+    public function getColumns(): array
     {
         return $this->columns;
     }

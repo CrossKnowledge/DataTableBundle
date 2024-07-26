@@ -2,7 +2,7 @@
 
 namespace CrossKnowledge\DataTableDundle\Tests\Controller;
 
-require_once __DIR__.'/../UsesContainerTrait.php';
+require_once __DIR__ . '/../UsesContainerTrait.php';
 
 use CrossKnowledge\DataTableBundle\Controller\DataTableController;
 use CrossKnowledge\DataTableBundle\DataTable\DataTableRegistry;
@@ -23,30 +23,24 @@ class DataTableControllerTest extends TestCase
     {
         $tableMock = $this->getDataTableMock();
         $registryMock = $this->getMockBuilder(DataTableRegistry::class)
-                             ->disableOriginalConstructor()
-                             ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $registryMock->expects($this->once())
-                     ->method('retrieveByTableId')
-                     ->will($this->returnValue($tableMock));
+            ->method('retrieveByTableId')
+            ->will($this->returnValue($tableMock));
 
         $rendererMock = $this->getMockBuilder(JsonRenderer::class)
-                             ->getMock();
+            ->getMock();
 
         $rendererMock->expects($this->once())
-                         ->method('renderJsonResponse')
-                         ->with($tableMock);
+            ->method('renderJsonResponse')
+            ->with($tableMock);
 
         $request = new Request([], [], ['tableid' => 'testtable_id']);
 
+        $controller = new DataTableController($registryMock, $rendererMock);
 
-        $controller = new DataTableController();
-        $container  = new ContainerBuilder();
-        $container->set('crossknowledge_datatable.registry', $registryMock);
-        $container->set('crossknowledge_datatable.json_renderer', $rendererMock);
-        $this->compileContainer($container);
-
-        $controller->setContainer($container);
         $controller->jsonAction($request);
     }
 }
