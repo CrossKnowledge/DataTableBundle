@@ -14,7 +14,7 @@ class DataTableRegistry
         $this->tables = $tableList;
     }
 
-    public function retrieveByTableId($tableId): AbstractTable
+    public function retrieveByTableId($tableId)
     {
         if (!array_key_exists($tableId, $this->tables)) {
             throw new BadMethodCallException('Table id with ' . $tableId . ' is not registered');

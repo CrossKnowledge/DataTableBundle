@@ -16,14 +16,14 @@ class CustomLayout implements DataTableLayoutInterface
     /**
      * @inheritdoc
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
     /**
      * @inheritdoc
      */
-    public function getDomDefinition(): string
+    public function getDomDefinition()
     {
         return $this->dom;
     }

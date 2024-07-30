@@ -12,7 +12,7 @@ interface ColumnInterface
      * @param string $identifier
      *
      */
-    public function setIdentifier($identifier): ColumnInterface;
+    public function setIdentifier($identifier);
 
     /**
      * Builds options resolver
@@ -25,9 +25,9 @@ interface ColumnInterface
      * Gets the key/value array that will be serialized into JSON to define the column for the Javascript API
      *
      */
-    public function getClientSideDefinition(): array;
+    public function getClientSideDefinition();
 
-    public function formatCell($value, array $rowData, $context): string;
+    public function formatCell($value, array $rowData, $context);
 
     /**
      * Sets the column options
@@ -36,5 +36,5 @@ interface ColumnInterface
      */
     public function setOptions(array $options);
 
-    public function getOptions(): array;
+    public function getOptions();
 }

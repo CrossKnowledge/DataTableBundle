@@ -33,7 +33,7 @@ class DataTableExtension extends AbstractExtension
         return 'crossKnowledge.datatable.twig_extension';
     }
 
-    public function renderTable(AbstractTable $table): string
+    public function renderTable(AbstractTable $table)
     {
         return $this->renderer->render($table);
     }

@@ -73,7 +73,7 @@ abstract class AbstractTable
      * @return array key must be the column field name,
      *               value must be an array of options for https://datatables.net/reference/option/columns
      */
-    abstract public function buildColumns(ColumnBuilder $builder, $context = self::VIEW_CONTEXT): array;
+    abstract public function buildColumns(ColumnBuilder $builder, $context = self::VIEW_CONTEXT);
 
     /**
      * Must return a \Traversable a traversable element that must contain for each element an ArrayAccess such as
@@ -120,12 +120,12 @@ abstract class AbstractTable
     {
     }
 
-    public function setOptions(array $options): array
+    public function setOptions(array $options)
     {
         $this->options = $this->optionsResolver->resolve(array_merge($this->options, $options));
     }
 
-    public function getOptions(): array
+    public function getOptions()
     {
         return $this->options;
     }
@@ -135,17 +135,17 @@ abstract class AbstractTable
      * @param FormBuilder $builder
      * @return FormBuilder
      */
-    public function buildFilterForm(FormBuilder $builder): FormBuilder
+    public function buildFilterForm(FormBuilder $builder)
     {
         return $builder;
     }
 
-    public function getAjaxAdditionalParameters(): array
+    public function getAjaxAdditionalParameters()
     {
         return [];
     }
 
-    public function getOutputRows($context = self::VIEW_CONTEXT): array
+    public function getOutputRows($context = self::VIEW_CONTEXT)
     {
         $t = [];
         foreach ($this->getDataIterator($context) as $item) {
@@ -159,7 +159,7 @@ abstract class AbstractTable
     /**
      * @see getColumns() same as getColumns but filtered for datatable JS API
      */
-    public function getClientSideColumns($context = self::VIEW_CONTEXT): array
+    public function getClientSideColumns($context = self::VIEW_CONTEXT)
     {
         $columns = $this->getColumns($context);
         $clientSideCols = [];
@@ -173,12 +173,12 @@ abstract class AbstractTable
     /**
      * @param Request $request
      */
-    public function handleRequest(Request $request): void
+    public function handleRequest(Request $request)
     {
         $this->currentRequest = PaginateRequest::fromHttpRequest($request, $this);
     }
 
-    public function getCurrentRequest(): PaginateRequest
+    public function getCurrentRequest()
     {
         return $this->currentRequest;
     }
@@ -186,7 +186,7 @@ abstract class AbstractTable
     /**
      * @return Form
      */
-    public function getFilterForm(): Form
+    public function getFilterForm()
     {
         return $this->filterForm;
     }
@@ -215,7 +215,7 @@ abstract class AbstractTable
      * @param string $context
      * @return Column[]
      */
-    public function getColumns(string $context = self::VIEW_CONTEXT): array
+    public function getColumns(string $context = self::VIEW_CONTEXT)
     {
         if (!array_key_exists($context, $this->columns)) {
             $this->initColumnsDefinitions($context);
@@ -227,7 +227,7 @@ abstract class AbstractTable
     /**
      * Builds the columns definition
      */
-    protected function initColumnsDefinitions($context = self::VIEW_CONTEXT): void
+    protected function initColumnsDefinitions($context = self::VIEW_CONTEXT)
     {
         $builder = new ColumnBuilder();
 
@@ -243,7 +243,7 @@ abstract class AbstractTable
      * @param $id
      * @return void
      */
-    public final function setTableId($id): void
+    public final function setTableId($id)
     {
         $this->tableId = $id;
     }

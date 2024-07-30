@@ -49,7 +49,7 @@ class Column implements ColumnInterface
      * @param string $identifier
      * @return Column
      */
-    public function setIdentifier($identifier): Column
+    public function setIdentifier($identifier)
     {
         $this->identifier = $identifier;
 
@@ -69,7 +69,7 @@ class Column implements ColumnInterface
     /**
      * @param array $options one within static::$clientSideColumnOptions
      */
-    public function setOptions(array $options): Column
+    public function setOptions(array $options)
     {
         $this->options = $this->optionsResolver->resolve($options);
 
@@ -79,7 +79,7 @@ class Column implements ColumnInterface
     /**
      * @return mixed
      */
-    public function getOptions(): array
+    public function getOptions()
     {
         return $this->options;
     }
@@ -88,7 +88,7 @@ class Column implements ColumnInterface
      * @param string $title
      * @return Column
      */
-    public function setTitle($title): Column
+    public function setTitle($title)
     {
         $this->options['title'] = $title;
 
@@ -102,7 +102,7 @@ class Column implements ColumnInterface
      * @param $context
      * @return mixed
      */
-    public function formatCell($value, array $rowData, $context): string
+    public function formatCell($value, array $rowData, $context)
     {
         if (is_callable($this->formatValueCallback)) {
             return call_user_func_array($this->formatValueCallback, [$value, $rowData, $context]);
@@ -111,7 +111,7 @@ class Column implements ColumnInterface
         }
     }
 
-    public function getFormatValueCallback(): Closure
+    public function getFormatValueCallback()
     {
         return $this->formatValueCallback;
     }
@@ -119,14 +119,14 @@ class Column implements ColumnInterface
     /**
      * @param Closure|null $callback
      */
-    public function setFormatValueCallback(Closure $callback = null): Column
+    public function setFormatValueCallback(Closure $callback = null)
     {
         $this->formatValueCallback = $callback;
 
         return $this;
     }
 
-    public function getClientSideDefinition(): array
+    public function getClientSideDefinition()
     {
         $infos = [];
 
