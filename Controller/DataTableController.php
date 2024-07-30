@@ -23,7 +23,7 @@ class DataTableController
      *
      * @return JsonResponse
      */
-    public function jsonAction(Request $request): JsonResponse
+    public function jsonAction(Request $request)
     {
         $dataTable = $this->registry->retrieveByTableId($request->get('tableid'));
         $dataTable->handleRequest($request);

@@ -27,7 +27,7 @@ class TwigRenderer implements RendererInterface
      * @throws RuntimeError
      * @throws LoaderError
      */
-    public function render(AbstractTable $table): string
+    public function render(AbstractTable $table)
     {
         $tableOptions = $table->getOptions();
         $data = [

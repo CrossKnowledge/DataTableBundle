@@ -2,6 +2,7 @@
 
 namespace CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column;
 
+use DateTime;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DateTimeColumn extends Column
@@ -25,7 +26,7 @@ class DateTimeColumn extends Column
         if ($inputFormat == 'object') {
             $dateTime = $value;
         } else {
-            $dateTime = \DateTime::createFromFormat($inputFormat, $value);
+            $dateTime = DateTime::createFromFormat($inputFormat, $value);
         }
 
         return $dateTime->format($this->getOptions()['output_format']);
