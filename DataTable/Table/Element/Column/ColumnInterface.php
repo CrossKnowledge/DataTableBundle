@@ -11,6 +11,7 @@ interface ColumnInterface
      *
      * @param string $identifier
      *
+     * @return ColumnInterface mixed
      */
     public function setIdentifier($identifier);
 
@@ -24,9 +25,13 @@ interface ColumnInterface
     /**
      * Gets the key/value array that will be serialized into JSON to define the column for the Javascript API
      *
+     * @return string[]
      */
     public function getClientSideDefinition();
 
+    /**
+     * @return string the content of the cell
+     */
     public function formatCell($value, array $rowData, $context);
 
     /**
@@ -36,5 +41,8 @@ interface ColumnInterface
      */
     public function setOptions(array $options);
 
+    /**
+     * @return string[] key/value of specified options
+     */
     public function getOptions();
 }

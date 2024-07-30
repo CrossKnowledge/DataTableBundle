@@ -2,7 +2,6 @@
 
 namespace CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column;
 
-use Closure;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Column implements ColumnInterface
@@ -12,8 +11,9 @@ class Column implements ColumnInterface
      *
      * https://datatables.net/reference/option/columns
      *
+     * @var array
      */
-    public static array $clientSideColumnOptions = [
+    public static $clientSideColumnOptions = [
         'cellType',
         'className',
         'contentPadding',
@@ -32,16 +32,26 @@ class Column implements ColumnInterface
         'width',
     ];
 
-    protected array $options;
-    protected OptionsResolver $optionsResolver;
-    protected ?Closure $formatValueCallback;
+    /**
+     * @var string key/value of options
+     */
+    protected $options;
 
-    public function __construct($title='', $options=[])
+    /**
+     * @var OptionsResolver
+     */
+    protected $optionsResolver;
+
+    /**
+     * @var \Closure callback that will be used to format this cell values
+     */
+    protected $formatValueCallback;
+
+    public function __construct($title = '', $options = [])
     {
         $this->optionsResolver = new OptionsResolver();
         $this->configureOptions($this->optionsResolver);
         $this->setOptions(array_merge($options, ['title' => $title]));
-        $this->formatValueCallback = null;
     }
 
     /**
@@ -111,21 +121,27 @@ class Column implements ColumnInterface
         }
     }
 
+    /**
+     * @return \Closure
+     */
     public function getFormatValueCallback()
     {
         return $this->formatValueCallback;
     }
 
     /**
-     * @param Closure|null $callback
+     * @param \Closure $callback
      */
-    public function setFormatValueCallback(Closure $callback = null)
+    public function setFormatValueCallback(\Closure $callback = null)
     {
         $this->formatValueCallback = $callback;
 
         return $this;
     }
 
+    /**
+     * @return string key/value filtered for client side API
+     */
     public function getClientSideDefinition()
     {
         $infos = [];

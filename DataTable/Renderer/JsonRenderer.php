@@ -12,7 +12,7 @@ class JsonRenderer implements RendererInterface
         $jsonVars = [];
         $jsonVars['recordsTotal'] = $table->getUnfilteredCount();
         $filterCount = $table->getFilteredCount();
-        $jsonVars['recordsFiltered'] = $filterCount!==false ? $filterCount : $jsonVars['recordsTotal'];
+        $jsonVars['recordsFiltered'] = $filterCount !== false ? $filterCount : $jsonVars['recordsTotal'];
         $jsonVars['data'] = array_map(
             function ($item) {
                 $t = [];

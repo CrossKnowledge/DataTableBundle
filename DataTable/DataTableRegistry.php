@@ -2,14 +2,19 @@
 
 namespace CrossKnowledge\DataTableBundle\DataTable;
 
-use BadMethodCallException;
 use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
 
 class DataTableRegistry
 {
-    protected array $tables;
+    /**
+     * @var Table\AbstractTable[]
+     */
+    protected $tables;
 
-    public function __construct(array $tableList)
+    /**
+     * @param AbstractTable[] $tableList
+     */
+    public function __construct($tableList)
     {
         $this->tables = $tableList;
     }
@@ -17,7 +22,7 @@ class DataTableRegistry
     public function retrieveByTableId($tableId)
     {
         if (!array_key_exists($tableId, $this->tables)) {
-            throw new BadMethodCallException('Table id with ' . $tableId . ' is not registered');
+            throw new \BadMethodCallException('Table id with ' . $tableId . ' is not registered');
         }
 
         return $this->tables[$tableId];

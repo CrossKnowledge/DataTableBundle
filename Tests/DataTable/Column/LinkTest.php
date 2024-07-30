@@ -14,9 +14,9 @@ class LinkTest extends TestCase
     {
         $column = new Link(
             "test", array_merge(
-                $options,
-                ['LinkTextField' => 'label_field']
-            )
+            $options,
+            ['LinkTextField' => 'label_field']
+        )
         );
 
         //Link should work with no value anyway

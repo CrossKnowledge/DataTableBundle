@@ -39,8 +39,13 @@ class DataTableControllerTest extends TestCase
 
         $request = new Request([], [], ['tableid' => 'testtable_id']);
 
-        $controller = new DataTableController($registryMock, $rendererMock);
+        $controller = new DataTableController();
+        $container = new ContainerBuilder();
+        $container->set('crossknowledge_datatable.registry', $registryMock);
+        $container->set('crossknowledge_datatable.json_renderer', $rendererMock);
+        $this->compileContainer($container);
 
+        $controller->setContainer($container);
         $controller->jsonAction($request);
     }
 }

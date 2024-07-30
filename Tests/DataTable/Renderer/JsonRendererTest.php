@@ -16,9 +16,11 @@ class JsonRendererTest extends TestCase
 
         $mock->expects($this->once())
             ->method('getUnfilteredCount')
-            ->will($this->returnValue(
-                $unfilteredCount
-            ));
+            ->will(
+                $this->returnValue(
+                    $unfilteredCount
+                )
+            );
 
         $mock->expects($this->once())
             ->method('getFilteredCount')
@@ -26,9 +28,11 @@ class JsonRendererTest extends TestCase
 
         $mock->expects($this->once())
             ->method('getOutputRows')
-            ->will($this->returnValue([
-                    ['col1' => 'mytestdata']
-                ]));
+            ->will(
+                $this->returnValue([
+                    ['col1' => 'mytestdata'],
+                ])
+            );
 
         return $mock;
     }
