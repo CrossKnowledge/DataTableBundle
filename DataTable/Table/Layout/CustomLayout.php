@@ -2,7 +2,6 @@
 
 namespace CrossKnowledge\DataTableBundle\DataTable\Table\Layout;
 
-
 class CustomLayout implements DataTableLayoutInterface
 {
     protected string $dom;
@@ -13,6 +12,7 @@ class CustomLayout implements DataTableLayoutInterface
         $this->name = $name;
         $this->dom = $dom;
     }
+
     /**
      * @inheritdoc
      */
@@ -20,6 +20,7 @@ class CustomLayout implements DataTableLayoutInterface
     {
         return $this->name;
     }
+
     /**
      * @inheritdoc
      */

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CrossKnowledge\DataTableBundle\DataTable;
 
 use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\ColumnInterface;

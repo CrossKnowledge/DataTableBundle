@@ -3,7 +3,6 @@
 namespace CrossKnowledge\DataTableBundle\DataTable\Request;
 
 use \CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
-use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -11,12 +10,32 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class PaginateRequest
 {
-    public int $offset = 0;
-    public int $limit = 10;
-    public ?Form $customFilter = null;
-    public array $search = [];
-    public ?array $orderBy = null;
-    public array $columns = [];
+    /**
+     * @var int current offset in paging
+     */
+    public $offset = 0;
+    /**
+     * @var int current per page limit
+     */
+    public $limit = 10;
+    /**
+     * @var Form filter form
+     */
+    public $customFilter = null;
+    /**
+     * @var array datatable search parameters
+     */
+    public $search = [];
+    /**
+     * @var array datatable order by parameters (something like
+     * order[0][column]:0
+     * order[0][dir]:asc
+     */
+    public $orderBy = null;
+    /**
+     * @var array datatable columns parameters
+     */
+    public $columns = [];
 
     public function __construct($offset, $limit, $search, $customFilter, $columns, $order)
     {
@@ -31,12 +50,12 @@ class PaginateRequest
     /**
      * @return true if a specific sort order is set
      */
-    public function isOrdered(): bool
+    public function isOrdered()
     {
         return count($this->orderBy) > 0;
     }
 
-    public static function fromHttpRequest(Request $request, AbstractTable $table): PaginateRequest
+    public static function fromHttpRequest(Request $request, AbstractTable $table)
     {
         $table->getFilterForm()->handleRequest($request);
 
