@@ -10,5 +10,5 @@ interface RendererInterface
      * @param DataTable $table
      * @return string html rendered
      */
-    public function render(AbstractTable $table): string;
+    public function render(AbstractTable $table);
 }
