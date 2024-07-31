@@ -1,7 +1,9 @@
 <?php
+
 namespace CrossKnowledge\DataTableBundle\DataTable\Request;
 
 use \CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -12,29 +14,29 @@ class PaginateRequest
     /**
      * @var int current offset in paging
      */
-    public $offset = 0;
+    public int $offset = 0;
     /**
      * @var int current per page limit
      */
-    public $limit = 10;
+    public int $limit = 10;
     /**
-     * @var Form filter form
+     * @var ?Form filter form
      */
-    public $customFilter = null;
+    public ?Form $customFilter = null;
     /**
      * @var array datatable search parameters
      */
-    public $search = [];
+    public array $search = [];
     /**
-     * @var array datatable order by parameters (something like
-    order[0][column]:0
-    order[0][dir]:asc
+     * @var ?array datatable order by parameters (something like
+     * order[0][column]:0
+     * order[0][dir]:asc
      */
-    public $orderBy = null;
+    public ?array $orderBy = null;
     /**
      * @var array datatable columns parameters
      */
-    public $columns = [];
+    public array $columns = [];
 
     public function __construct($offset, $limit, $search, $customFilter, $columns, $order)
     {
@@ -49,12 +51,12 @@ class PaginateRequest
     /**
      * @return true if a specific sort order is set
      */
-    public function isOrdered()
+    public function isOrdered(): bool
     {
-        return count($this->orderBy)>0;
+        return count($this->orderBy) > 0;
     }
 
-    public static function fromHttpRequest(Request $request, AbstractTable $table)
+    public static function fromHttpRequest(Request $request, AbstractTable $table): PaginateRequest
     {
         $table->getFilterForm()->handleRequest($request);
 
@@ -65,7 +67,7 @@ class PaginateRequest
         if (!empty($numericOrder[0]) && isset($numericOrder[0]['column'])) {
             $colIndex = 0;
             $sortColIndex = $numericOrder[0]['column'];
-            foreach ($table->getColumns() as $colid=>$column) {
+            foreach ($table->getColumns() as $colid => $column) {
                 if ($sortColIndex == $colIndex) {
                     $colnameOrder[$colid] = $numericOrder[0]['dir'];
                 }
@@ -73,7 +75,6 @@ class PaginateRequest
                 $colIndex++;
             }
         }
-
 
         return new static(
             $request->get('start', 0),

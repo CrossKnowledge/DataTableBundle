@@ -15,25 +15,29 @@ class TwigRendererTest extends TestCase
     {
         $mock = $this->getTableMock([
             'template' => 'example.html.twig',
-            'has_filter_form' => true
+            'has_filter_form' => true,
         ]);
 
         $mock->expects($this->once())
             ->method('getFilterForm')
-            ->will($this->returnValue($this->getMockBuilder(Form::class)
-                ->disableOriginalConstructor()
-                ->getMock()));
+            ->will(
+                $this->returnValue(
+                    $this->getMockBuilder(Form::class)
+                        ->disableOriginalConstructor()
+                        ->getMock()
+                )
+            );
 
         $twig = $this->getMockBuilder(Environment::class)
-                    ->disableOriginalConstructor()
-                    ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $templateMock = $this->getMockBuilder(Environment::class)
-                             ->disableOriginalConstructor()
-                             ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $twig->expects($this->once())->method('loadTemplate')
-             ->will($this->returnValue($templateMock));
+            ->will($this->returnValue($templateMock));
 
         $renderer = new TwigRenderer($twig);
         $renderer->render($mock);
@@ -43,22 +47,22 @@ class TwigRendererTest extends TestCase
     {
         $mock = $this->getTableMock([
             'template' => 'example.html.twig',
-            'has_filter_form' => false
+            'has_filter_form' => false,
         ]);
 
         $mock->expects($this->never())
             ->method('getFilterForm');
 
         $twig = $this->getMockBuilder(Environment::class)
-                    ->disableOriginalConstructor()
-                    ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $templateMock = $this->getMockBuilder(Environment::class)
-                             ->disableOriginalConstructor()
-                             ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $twig->expects($this->once())->method('loadTemplate')
-             ->will($this->returnValue($templateMock));
+            ->will($this->returnValue($templateMock));
 
         $renderer = new TwigRenderer($twig);
         $renderer->render($mock);

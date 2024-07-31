@@ -1,4 +1,5 @@
 <?php
+
 namespace CrossKnowledge\DataTableBundle\DataTable\Table;
 
 use CrossKnowledge\DataTableBundle\DataTable\ColumnBuilder;
@@ -18,8 +19,8 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 abstract class AbstractTable
 {
-    const VIEW_CONTEXT   = 'view';
-    
+    const VIEW_CONTEXT = 'view';
+
     /**
      * @var Router
      */
@@ -44,8 +45,8 @@ abstract class AbstractTable
     /**
      * @var Column[]
      */
-    protected $columns = array();
-    protected $columnsInitialized = array();
+    protected $columns = [];
+    protected $columnsInitialized = [];
 
     /**
      * @var OptionsResolver
@@ -61,6 +62,7 @@ abstract class AbstractTable
      * @var DataTableLayoutInterface
      */
     protected $layout;
+
     /**
      * @param FormFactory $formFactory
      * @param Router $router
@@ -83,20 +85,22 @@ abstract class AbstractTable
         $this->configureOptions($this->optionsResolver);
         $this->options = $this->optionsResolver->resolve();
     }
+
     /**
      *
      * Example implementation
-
-    public function buildColumns(ColumnBuilder $builder)
-    {
-        $builder->add('Learner.FirstName', new Column('First name title', ['width' => '20%']))
-                ->add('Learner.Name', new Column('Last name'));
-    }
+     *
+     * public function buildColumns(ColumnBuilder $builder)
+     * {
+     * $builder->add('Learner.FirstName', new Column('First name title', ['width' => '20%']))
+     * ->add('Learner.Name', new Column('Last name'));
+     * }
      *
      * @return array key must be the column field name,
      *               value must be an array of options for https://datatables.net/reference/option/columns
      */
     abstract public function buildColumns(ColumnBuilder $builder, $context = self::VIEW_CONTEXT);
+
     /**
      * Must return a \Traversable a traversable element that must contain for each element an ArrayAccess such as
      *      key(colname) => value(db value)
@@ -104,21 +108,23 @@ abstract class AbstractTable
      * The filter should be used there.
      *
      * Example of the expected return
-    return [
-        'first_name' => 'John',
-        'last_name' => 'Doe'
-    ];
+     * return [
+     * 'first_name' => 'John',
+     * 'last_name' => 'Doe'
+     * ];
      * Example:
-    return new \PropelCollection();
-     *    
+     * return new \PropelCollection();
+     *
      * @param string $context
      * @return \Traversable
      */
     abstract public function getDataIterator($context = self::VIEW_CONTEXT);
+
     /**
      * @return int the total number of rows regardless of filters
      */
     abstract public function getUnfilteredCount();
+
     /**
      * @return int|false if there is no such count
      */
@@ -133,17 +139,21 @@ abstract class AbstractTable
             'no_init_loading' => false,
             'template' => 'CrossKnowledgeDataTableBundle::default_table.html.twig',
             'data_table_custom_options' => [],
-            'has_filter_form' => function() {
-                return $this->getFilterForm()->count()>1;
-            }
+            'has_filter_form' => function () {
+                return $this->getFilterForm()->count() > 1;
+            },
         ]);
     }
+
     /**
      * Configure the table options
      *
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver){}
+    public function configureOptions(OptionsResolver $resolver)
+    {
+    }
+
     /**
      * @return array
      */
@@ -151,6 +161,7 @@ abstract class AbstractTable
     {
         $this->options = $this->optionsResolver->resolve(array_merge($this->options, $options));
     }
+
     /**
      * @return array
      */
@@ -158,6 +169,7 @@ abstract class AbstractTable
     {
         return $this->options;
     }
+
     /**
      * Build the filter form
      *
@@ -169,6 +181,7 @@ abstract class AbstractTable
     {
         return $builder;
     }
+
     /**
      * @return string
      */
@@ -176,6 +189,7 @@ abstract class AbstractTable
     {
         return [];
     }
+
     /**
      * @return string[] should return the content to insert in the rows key(colname) => value(string / html / any)
      */
@@ -183,13 +197,13 @@ abstract class AbstractTable
     {
         $t = [];
         foreach ($this->getDataIterator($context) as $item) {
-            $formatted = $this->formatter->formatRow($item,  $this, $context);
+            $formatted = $this->formatter->formatRow($item, $this, $context);
             $t[] = $formatted;
         }
 
         return $t;
     }
-    
+
     /**
      * @see getColumns() same as getColumns but filtered for datatable JS API
      */
@@ -197,12 +211,13 @@ abstract class AbstractTable
     {
         $columns = $this->getColumns($context);
         $clientSideCols = [];
-        foreach ($columns as $colid=>$column) {
+        foreach ($columns as $colid => $column) {
             $clientSideCols[$colid] = $column->getClientSideDefinition();
         }
 
         return $clientSideCols;
     }
+
     /**
      * @param Request $request
      */
@@ -210,6 +225,7 @@ abstract class AbstractTable
     {
         $this->currentRequest = PaginateRequest::fromHttpRequest($request, $this);
     }
+
     /**
      * @return PaginateRequest
      */
@@ -217,20 +233,22 @@ abstract class AbstractTable
     {
         return $this->currentRequest;
     }
+
     /**
      * @return Form|\Symfony\Component\Form\Form
      */
     public function getFilterForm()
     {
-        if (null===$this->filterForm) {
+        if (null === $this->filterForm) {
             $this->filterForm = $this->buildFilterForm(
-                $this->formFactory->createNamedBuilder($this->getTableId().'_filter')
+                $this->formFactory->createNamedBuilder($this->getTableId() . '_filter')
                     ->add('dofilter', ButtonType::class)
             )->getForm();
         }
 
         return $this->filterForm;
     }
+
     /**
      * Sets the formatter
      *
@@ -242,6 +260,7 @@ abstract class AbstractTable
     {
         $this->formatter = $formatter;
     }
+
     /**
      * @return string a table idenfitier that will be used for ajax requests
      */
@@ -249,16 +268,19 @@ abstract class AbstractTable
     {
         return $this->tableId;
     }
+
     /**
      * @return \CrossKnowledge\DataTableBundle\Table\Element\Column[]
      */
     public function getColumns($context = self::VIEW_CONTEXT)
     {
-        if(!array_key_exists($context, $this->columns)) {
+        if (!array_key_exists($context, $this->columns)) {
             $this->initColumnsDefinitions($context);
         }
+
         return $this->columns[$context];
     }
+
     /**
      * Builds the columns definition
      */
@@ -269,8 +291,9 @@ abstract class AbstractTable
         $this->buildColumns($builder, $context);
 
         $this->columns[$context] = $builder->getColumns();
-        $this->columnsInitialized[$context] =  true;
+        $this->columnsInitialized[$context] = true;
     }
+
     /**
      * Sets the table identifier
      *

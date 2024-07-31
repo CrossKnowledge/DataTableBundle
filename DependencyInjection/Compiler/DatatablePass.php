@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class DatatablePass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $registry = $container->getDefinition('crossknowledge_datatable.registry');
 

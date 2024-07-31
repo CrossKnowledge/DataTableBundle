@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 trait UsesContainerTrait
 {
-    protected function compileContainer(ContainerBuilder $container, $loadExt=true)
+    protected function compileContainer(ContainerBuilder $container, $loadExt = true)
     {
         if ($loadExt) {
             $extension = new CrossKnowledgeDataTableExtension();
@@ -30,8 +30,8 @@ trait UsesContainerTrait
     public function getDataTableMock()
     {
         return $this->getMockBuilder('CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable')
-                    ->disableOriginalConstructor()
-                    ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }
 

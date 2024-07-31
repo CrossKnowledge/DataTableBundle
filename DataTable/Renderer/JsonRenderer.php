@@ -7,12 +7,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class JsonRenderer implements RendererInterface
 {
-    public function render(AbstractTable $table)
+    public function render(AbstractTable $table): string
     {
         $jsonVars = [];
         $jsonVars['recordsTotal'] = $table->getUnfilteredCount();
         $filterCount = $table->getFilteredCount();
-        $jsonVars['recordsFiltered'] = $filterCount!==false ? $filterCount : $jsonVars['recordsTotal'];
+        $jsonVars['recordsFiltered'] = $filterCount !== false ? $filterCount : $jsonVars['recordsTotal'];
         $jsonVars['data'] = array_map(
             function ($item) {
                 $t = [];
@@ -28,7 +28,7 @@ class JsonRenderer implements RendererInterface
         return json_encode($jsonVars);
     }
 
-    public function renderJsonResponse(AbstractTable $table)
+    public function renderJsonResponse(AbstractTable $table): JsonResponse
     {
         $response = new JsonResponse();
         $response->setContent($this->render($table));

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -10,14 +9,14 @@ class DateTimeColumn extends Column
     /**
      * @param OptionsResolver $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
         $resolver->setDefault('input_format', 'Y-m-d H:i:s');
         $resolver->setRequired('output_format');
     }
 
-    public function formatCell($value, array $row, $context)
+    public function formatCell($value, array $row, $context): string
     {
         if (empty($value)) {
             return '';

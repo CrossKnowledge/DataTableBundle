@@ -1,4 +1,5 @@
 <?php
+
 namespace CrossKnowledge\DataTableDundle\Tests\DataTable\Layout;
 
 use CrossKnowledge\DataTableBundle\DataTable\Table\Layout\Bootstrap;

@@ -8,29 +8,29 @@ use Twig\Environment;
 class TwigRenderer implements RendererInterface
 {
     /** @var Environment */
-    protected $twig;
+    protected Environment $twigEnvironment;
 
     /**
      * TwigRenderer constructor
      *
-     * @param Environment $env
+     * @param Environment $twigEnvironment
      */
-    public function __construct(Environment $env)
+    public function __construct(Environment $twigEnvironment)
     {
-        $this->twig = $env;
+        $this->twigEnvironment = $twigEnvironment;
     }
 
-    public function render(AbstractTable $table)
+    public function render(AbstractTable $table): string
     {
         $tableOptions = $table->getOptions();
         $data = [
             'columns' => $table->getClientSideColumns(),
             'datatable' => $table,
         ];
-        if ($tableOptions['has_filter_form'])
-        {
+        if ($tableOptions['has_filter_form']) {
             $data['filterForm'] = $table->getFilterForm()->createView();
         }
-        return $this->twig->load($tableOptions['template'])->render($data);
+
+        return $this->twigEnvironment->load($tableOptions['template'])->render($data);
     }
 }

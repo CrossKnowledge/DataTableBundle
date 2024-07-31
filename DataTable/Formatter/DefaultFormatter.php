@@ -1,8 +1,6 @@
 <?php
 
-
 namespace CrossKnowledge\DataTableBundle\DataTable\Formatter;
-
 
 use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
 
@@ -13,7 +11,7 @@ class DefaultFormatter implements FormatterInterface
      *
      * @param $row
      * @param AbstractTable $table
-     *
+     * @param $context
      * @return mixed
      */
     public function formatRow($row, AbstractTable $table, $context)
@@ -21,8 +19,7 @@ class DefaultFormatter implements FormatterInterface
         $cols = $table->getColumns($context);
         $newRow = [];
 
-        foreach ($cols as $colIdentifier=>$column) {
-
+        foreach ($cols as $colIdentifier => $column) {
             $rawValue = array_key_exists($colIdentifier, $row) ? $row[$colIdentifier] : "";
 
             if ($column->getOptions()['auto_escape']) {

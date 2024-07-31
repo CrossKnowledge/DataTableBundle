@@ -1,6 +1,5 @@
 <?php
 
-
 namespace CrossKnowledge\DataTableBundle\DataTable;
 
 use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\ColumnInterface;
@@ -12,7 +11,7 @@ use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\ColumnInterfac
  */
 class ColumnBuilder
 {
-    protected $columns;
+    protected array $columns;
 
     /**
      * @param string $colidentifier
@@ -20,7 +19,7 @@ class ColumnBuilder
      *
      * @return ColumnBuilder
      */
-    public function add($colidentifier, ColumnInterface $definition)
+    public function add($colidentifier, ColumnInterface $definition): self
     {
         $definition->setIdentifier($colidentifier);
         $this->columns[$colidentifier] = $definition;
@@ -31,7 +30,7 @@ class ColumnBuilder
     /**
      * @return ColumnInterface[]
      */
-    public function getColumns()
+    public function getColumns(): array
     {
         return $this->columns;
     }
