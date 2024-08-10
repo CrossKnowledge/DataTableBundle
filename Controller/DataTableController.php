@@ -4,7 +4,6 @@ namespace CrossKnowledge\DataTableBundle\Controller;
 
 use CrossKnowledge\DataTableBundle\DataTable\DataTableRegistry;
 use CrossKnowledge\DataTableBundle\DataTable\Renderer\JsonRenderer;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
