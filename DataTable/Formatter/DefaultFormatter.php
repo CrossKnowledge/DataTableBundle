@@ -3,7 +3,6 @@
 namespace CrossKnowledge\DataTableBundle\DataTable\Formatter;
 
 use CrossKnowledge\DataTableBundle\DataTable\Table\AbstractTable;
-use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\Column;
 
 class DefaultFormatter implements FormatterInterface
 {
