@@ -4,8 +4,8 @@ namespace CrossKnowledge\DataTableBundle\DataTable\Table\Layout;
 
 class CustomLayout implements DataTableLayoutInterface
 {
-    protected string $dom;
-    protected string $name;
+    protected ?string $dom;
+    protected ?string $name;
 
     public function __construct($name, $dom)
     {

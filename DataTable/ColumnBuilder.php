@@ -17,7 +17,7 @@ class ColumnBuilder
      * @param string $colidentifier
      * @param ColumnInterface $definition
      */
-    public function add(string $colidentifier, ColumnInterface $definition)
+    public function add($colidentifier, ColumnInterface $definition)
     {
         $definition->setIdentifier($colidentifier);
         $this->columns[$colidentifier] = $definition;
@@ -25,6 +25,9 @@ class ColumnBuilder
         return $this;
     }
 
+    /**
+     * @return ColumnInterface[]
+     */
     public function getColumns()
     {
         return $this->columns;
