@@ -8,6 +8,7 @@ use CrossKnowledge\DataTableBundle\DataTable\Table\Element\Column\Column;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Form;
 use Twig\Environment;
+use Twig\Loader\ArrayLoader;
 
 class TwigRendererTest extends TestCase
 {
@@ -18,29 +19,24 @@ class TwigRendererTest extends TestCase
             'has_filter_form' => true,
         ]);
 
+        $filterForm = $this->getMockBuilder(Form::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $mock->expects($this->once())
             ->method('getFilterForm')
-            ->will(
-                $this->returnValue(
-                    $this->getMockBuilder(Form::class)
-                        ->disableOriginalConstructor()
-                        ->getMock()
-                )
-            );
+            ->willReturn($filterForm);
 
-        $twig = $this->getMockBuilder(Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $templates = [
+            'example.html.twig' => '{{ table.options.template }} with filter form',
+        ];
 
-        $templateMock = $this->getMockBuilder(Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $twig->expects($this->once())->method('loadTemplate')
-            ->will($this->returnValue($templateMock));
+        $twig = new Environment(new ArrayLoader($templates));
 
         $renderer = new TwigRenderer($twig);
-        $renderer->render($mock);
+        $result = $renderer->render($mock);
+
+        $this->assertEquals(' with filter form', $result);
     }
 
     public function testRenderWithoutFilters()
@@ -53,19 +49,16 @@ class TwigRendererTest extends TestCase
         $mock->expects($this->never())
             ->method('getFilterForm');
 
-        $twig = $this->getMockBuilder(Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $templates = [
+            'example.html.twig' => '{{ table.options.template }} without filter form',
+        ];
 
-        $templateMock = $this->getMockBuilder(Environment::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $twig->expects($this->once())->method('loadTemplate')
-            ->will($this->returnValue($templateMock));
+        $twig = new Environment(new ArrayLoader($templates));
 
         $renderer = new TwigRenderer($twig);
-        $renderer->render($mock);
+        $result = $renderer->render($mock);
+
+        $this->assertEquals(' without filter form', $result);
     }
 
     public function getTableMock(array $options)

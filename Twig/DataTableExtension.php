@@ -19,7 +19,7 @@ class DataTableExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions(): array
+    public function getFunctions()
     {
         return [
             new TwigFunction('render_table', [$this, 'renderTable'], [
@@ -28,7 +28,7 @@ class DataTableExtension extends AbstractExtension
         ];
     }
 
-    public function getName(): string
+    public function getName()
     {
         return 'crossKnowledge.datatable.twig_extension';
     }

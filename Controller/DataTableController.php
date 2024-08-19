@@ -36,4 +36,10 @@ class DataTableController
     {
         $this->jsonRenderer = $jsonRenderer;
     }
+
+    public function setContainer($container)
+    {
+        $this->registry = $container->get('crossknowledge_datatable.registry');
+        $this->jsonRenderer = $container->get('crossknowledge_datatable.json_renderer');
+    }
 }
