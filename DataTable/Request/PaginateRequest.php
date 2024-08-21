@@ -28,8 +28,8 @@ class PaginateRequest
     public $search = [];
     /**
      * @var array datatable order by parameters (something like
-     * order[0][column]:0
-     * order[0][dir]:asc
+     order[0][column]:0
+     order[0][dir]:asc
      */
     public $orderBy = null;
     /**
