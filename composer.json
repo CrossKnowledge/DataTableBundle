@@ -40,7 +40,7 @@
   "extra": {
     "symfony": {
       "allow-contrib": true,
-      "require": "5.*"
+      "require": "5.4.*"
     }
   },
   "config": {
