@@ -19,7 +19,7 @@
     "psr-4": { "CrossKnowledge\\DataTableBundle\\": "" }
   },
   "require": {
-    "php": ">=5.5",
+    "php": ">=7.2.5",
     "symfony/flex": "^1.0",
     "symfony/form": "^5.4",
     "symfony/options-resolver": "^5.4",
