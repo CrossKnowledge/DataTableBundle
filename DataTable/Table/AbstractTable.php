@@ -130,7 +130,7 @@ abstract class AbstractTable
      */
     abstract public function getFilteredCount();
 
-    private final function setDefaultOptions(OptionsResolver $resolver)
+    private function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'layout' => $this->layout,
