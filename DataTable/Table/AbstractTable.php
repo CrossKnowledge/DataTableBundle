@@ -63,6 +63,10 @@ abstract class AbstractTable
      */
     protected $layout;
 
+    public $formatter;
+
+    public $tableId;
+
     /**
      * @param FormFactory $formFactory
      * @param Router $router
@@ -130,7 +134,7 @@ abstract class AbstractTable
      */
     abstract public function getFilteredCount();
 
-    private final function setDefaultOptions(OptionsResolver $resolver)
+    private function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'layout' => $this->layout,
