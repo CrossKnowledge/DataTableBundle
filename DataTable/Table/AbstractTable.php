@@ -63,6 +63,10 @@ abstract class AbstractTable
      */
     protected $layout;
 
+    public $formatter;
+
+    public $tableId;
+
     /**
      * @param FormFactory $formFactory
      * @param Router $router
