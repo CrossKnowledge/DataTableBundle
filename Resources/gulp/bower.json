@@ -8,6 +8,6 @@
     "bower_components"
   ],
   "dependencies": {
-    "datatables": "1.10.21"
+    "datatables.net": "1.13.0"
   }
 }
