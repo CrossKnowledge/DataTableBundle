@@ -4826,7 +4826,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 if (customOptions != undefined) {
                     options = $.extend({}, options, customOptions);
                 }
-                this.table = new DataTable(this.element.querySelector('table'), options);
+                this.table = new DataTable(this.element.find('table'), options);
             }
         }]);
 
