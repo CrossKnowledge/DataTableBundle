@@ -6,7 +6,7 @@ if (typeof window.jQuery !== 'undefined') {
 jQuery(function($) {
     var $configDatatables = $('.ck-datatable');
     if ($configDatatables.length === 0) {
-        console.error('DataTable initialization failed: No configuration div found');
+        console.warn('DataTable initialization failed: No configuration div found');
         return;
     }
 
@@ -55,7 +55,7 @@ jQuery(function($) {
                 // Initialize DataTable
                 var dataTable = new DataTable($table[0], options);
             } catch (error) {
-                console.error('DataTable initialization failed:', error);
+                console.warn('DataTable initialization failed:', error);
             }
         }
     });
