@@ -167,9 +167,12 @@
                   key: "formatColumnOption",
                   value: function () {
                     var e = [];
+                    var columnIndex = 0;
                     for (var n in this.columns) {
                       var i = t.extend({}, this.columns[n]);
+                      i.data = columnIndex;
                       e.push(i);
+                      columnIndex++;
                     }
                     return e;
                   },
@@ -210,6 +213,40 @@
                         ? (t[0].style.display = "none")
                         : (t[0].style.display = "block");
                     }
+
+                    // Fix header classes and aria-sort after each draw
+                    var currentOrder = this.table ? this.table.order() : [];
+                    var sortedColumn = currentOrder.length > 0 ? currentOrder[0][0] : -1;
+                    var sortDirection = currentOrder.length > 0 ? currentOrder[0][1] : null;
+                    
+                    this.element.find('table thead th').each(function(index) {
+                      var $th = jQuery(this);
+                      $th.attr('data-dt-column', index);
+                      
+                      // Set aria-sort and corresponding class based on index matching sorted column
+                      if (index === sortedColumn) {
+                        if (sortDirection === 'asc') {
+                          $th.attr('aria-sort', 'ascending');
+                          $th.addClass('dt-ordering-asc');
+                          $th.removeClass('dt-ordering-desc');
+                        } else if (sortDirection === 'desc') {
+                          $th.attr('aria-sort', 'descending');
+                          $th.addClass('dt-ordering-desc');
+                          $th.removeClass('dt-ordering-asc');
+                        } else {
+                          $th.removeClass('dt-ordering-asc dt-ordering-desc');
+                        }
+                      } else {
+                        $th.removeAttr('aria-sort');
+                        $th.removeClass('dt-ordering-asc dt-ordering-desc');
+                      }
+                      
+                      // first remove any existing non-orderable class, then add the correct orderable classes
+                      if ($th.hasClass('dt-orderable-none')) {
+                        $th.removeClass('dt-orderable-none');
+                        $th.addClass('dt-orderable-asc dt-orderable-desc');
+                      }
+                    });
                   },
                 },
                 {
@@ -218,7 +255,7 @@
                     var e = this;
                     ((this.url = this.element.data("cktable-ajax-url")),
                       (this.columns = this.element.data("cktable-columns")));
-                    var n = this.formatColumnOption(),
+                      var n = this.formatColumnOption(),
                       i = {
                         ajax: {
                           url: this.url,
@@ -232,6 +269,7 @@
                           e.tableDrawCallback();
                         },
                         serverSide: !0,
+                        ordering: !0,
                         bFilter: this.element.data(
                           "cktable-clientside-filtering",
                         ),
