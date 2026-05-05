@@ -26,5 +26,8 @@
     "yargs": "^3.31.0",
     "babel-polyfill": "6.3.14",
     "gulp-inject-string": "^1.1.0"
+  },
+  "dependencies": {
+    "bower": "^1.8.14"
   }
 }
