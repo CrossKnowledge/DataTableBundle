@@ -136,10 +136,10 @@
                 this.filterableContainer.data('dom-positionning-complete', true);
             }
 
-            let paginate = this.element.find('.dataTables_paginate');
+            let paginate = this.element.find('.datatable-paginate-container');
             if (paginate.length > 0) {
                 //Empty paging divs if only one page
-                let pagingSize = paginate.find('.paginate_button:not(.next,.previous)').length;
+                let pagingSize = paginate.find('.dt-paging-button:not(.next,.previous)').length;
                 if (pagingSize === 1) {
                     paginate[0].style.display = 'none';
                 } else {
@@ -170,9 +170,8 @@
                 drawCallback: (settings) => {
                     this.tableDrawCallback();
                 },
-                //deferLoading: this.element.data('total-row-count'),
                 serverSide: true,
-                //data: data,
+                pagingType: 'simple_numbers',
                 bFilter: this.element.data('cktable-clientside-filtering'),
                 columns: colList
             };

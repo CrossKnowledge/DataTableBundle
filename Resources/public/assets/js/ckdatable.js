@@ -204,10 +204,10 @@
                         "dom-positionning-complete",
                         !0,
                       ));
-                    var t = this.element.find(".dataTables_paginate");
+                    var t = this.element.find(".datatable-paginate-container");
                     if (t.length > 0) {
                       var e = t.find(
-                        ".paginate_button:not(.next,.previous)",
+                        ".dt-paging-button:not(.next,.previous)",
                       ).length;
                       1 === e
                         ? (t[0].style.display = "none")
@@ -270,6 +270,7 @@
                         },
                         serverSide: !0,
                         ordering: !0,
+                        pagingType: "simple_numbers",
                         bFilter: this.element.data(
                           "cktable-clientside-filtering",
                         ),
