@@ -204,15 +204,19 @@
                         "dom-positionning-complete",
                         !0,
                       ));
-                    var t = this.element.find(".datatable-paginate-container");
-                    if (t.length > 0) {
-                      var e = t.find(
-                        ".dt-paging-button:not(.next,.previous)",
-                      ).length;
-                      1 === e
-                        ? (t[0].style.display = "none")
-                        : (t[0].style.display = "block");
-                    }
+                      let t = this.element.find('.datatable-paginate-container');
+                      if (t.length === 0) {
+                          return;
+                      }
+
+                      const p = this.table && this.table.page ? this.table.page.info() : null;
+                      if (!p) {
+                          t[0].style.display = 'none';
+                          return;
+                      }
+
+                      const s = p.length > 0 && p.recordsDisplay > p.length;
+                      t[0].style.display = s ? 'block' : 'none';
 
                     // Fix header classes and aria-sort after each draw
                     var currentOrder = this.table ? this.table.order() : [];
