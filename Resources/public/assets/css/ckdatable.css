@@ -44,3 +44,35 @@
 .ck-datatable .datatable-length-container .dt-length {
   float: right;
 }
+
+/* Override default datatable styles for paging */
+.dt-container .dt-length, 
+.dt-container .dt-info, 
+.dt-container .dt-paging {
+  color: #333;
+}
+.dt-container .dt-info {
+  clear: both;
+  float: left;
+  padding-top: 0.755em;
+  margin-top: 10px;
+}
+.dt-container .dt-paging {
+  float: none;
+  text-align: center;
+  padding-top: 0;
+}
+div.dt-container .dt-paging .dt-paging-button {
+  box-sizing: border-box;
+  display: inline-block;
+  min-width: 1.5em;
+  padding: 0.5em 1em;
+  margin-left: 2px;
+  text-align: center;
+  text-decoration: none !important;
+  cursor: pointer;
+  color: #333 !important;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font-size: 11px;
+}

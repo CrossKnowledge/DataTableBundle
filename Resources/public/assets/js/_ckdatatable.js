@@ -136,16 +136,19 @@
                 this.filterableContainer.data('dom-positionning-complete', true);
             }
 
-            let paginate = this.element.find('.dataTables_paginate');
-            if (paginate.length > 0) {
-                //Empty paging divs if only one page
-                let pagingSize = paginate.find('.paginate_button:not(.next,.previous)').length;
-                if (pagingSize === 1) {
-                    paginate[0].style.display = 'none';
-                } else {
-                    paginate[0].style.display = 'block';
-                }
+            let paginate = this.element.find('.datatable-paginate-container');
+            if (paginate.length === 0) {
+                return;
             }
+
+            const pageInfo = this.table && this.table.page ? this.table.page.info() : null;
+            if (!pageInfo) {
+                paginate[0].style.display = 'none';
+                return;
+            }
+
+            const shouldShowPagination = pageInfo.length > 0 && pageInfo.recordsDisplay > pageInfo.length;
+            paginate[0].style.display = shouldShowPagination ? 'block' : 'none';
         }
         /**
          * Init the datatable instance using the dom element's container data-attributes
@@ -170,9 +173,8 @@
                 drawCallback: (settings) => {
                     this.tableDrawCallback();
                 },
-                //deferLoading: this.element.data('total-row-count'),
                 serverSide: true,
-                //data: data,
+                pagingType: 'simple_numbers',
                 bFilter: this.element.data('cktable-clientside-filtering'),
                 columns: colList
             };
